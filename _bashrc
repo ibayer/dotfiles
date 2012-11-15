@@ -1,3 +1,6 @@
+# to unmap ctrl-s for ipython
+stty stop undef 
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 

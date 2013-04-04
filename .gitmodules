@@ -64,3 +64,6 @@
 [submodule "_vim/bundle/coffee"]
 	path = _vim/bundle/coffee
 	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "_vim/bundle/vim-ipython"]
+	path = _vim/bundle/vim-ipython
+	url = http://github.com/ivanov/vim-ipython.git

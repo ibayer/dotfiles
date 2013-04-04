@@ -245,6 +245,9 @@ endif
 " Paste from clipboard
 map <leader>p "+p
 
+" Paste multiple time the same
+xnoremap p pgvy
+
 " Quit window on <leader>q
 nnoremap <leader>q :q<CR>
 

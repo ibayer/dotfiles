@@ -1,3 +1,7 @@
+# for virtualenvwrapper
+export WORKON_HOME="$HOME/.virtualenvs"
+source $HOME/bin/virtualenvwrapper_bashrc
+
 # to unmap ctrl-s for ipython
 stty stop undef 
 

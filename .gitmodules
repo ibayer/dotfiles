@@ -64,3 +64,6 @@
 [submodule "_vim/bundle/ctrlp"]
 	path = _vim/bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
+[submodule "_vim/bundle/vim-ipython"]
+	path = _vim/bundle/vim-ipython
+	url = http://github.com/ivanov/vim-ipython.git

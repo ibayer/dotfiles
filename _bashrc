@@ -1,6 +1,7 @@
 # for virtualenvwrapper
 export WORKON_HOME="$HOME/.virtualenvs"
-source $HOME/bin/virtualenvwrapper_bashrc
+#source $HOME/bin/virtualenvwrapper_bashrc
+source /usr/local/bin/virtualenvwrapper.sh
 
 # to unmap ctrl-s for ipython
 stty stop undef 
@@ -179,3 +180,4 @@ export GIT_EDITOR="vim"
 
 # Add git and svn branch names
 export PS1="$PS1\$(parse_git_branch)\$(parse_svn_branch) "
+

@@ -37,6 +37,3 @@
 [submodule "_vim/bundle/voom_vim"]
 	path = _vim/bundle/voom_vim
 	url = https://github.com/vim-scripts/VOoM
-[submodule "_vim/bundle/vim-flake8"]
-	path = _vim/bundle/vim-flake8
-	url = https://github.com/nvie/vim-flake8.git

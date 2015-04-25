@@ -225,6 +225,11 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
 
+" some python-mode settings "
+let g:pymode_lint_on_fly = 1
+let g:pymode_lint = 1
+let g:pymode_lint_cwindow = 0
+
 
 " ===========================================================
 " Vim-latex

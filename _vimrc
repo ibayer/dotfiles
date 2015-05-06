@@ -105,6 +105,7 @@ set background=dark           " We are using dark background in vim
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
+set dir=/home/ibayer/tmp,/var/tmp,/tmp
 
 " don't bell or blink
 set noerrorbells
@@ -229,6 +230,8 @@ let g:pyflakes_use_quickfix = 0
 let g:pymode_lint_on_fly = 1
 let g:pymode_lint = 1
 let g:pymode_lint_cwindow = 0
+
+let g:flake8_show_in_file=1  " show
 
 
 " ===========================================================

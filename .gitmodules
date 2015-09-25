@@ -37,3 +37,6 @@
 [submodule "_vim/bundle/voom_vim"]
 	path = _vim/bundle/voom_vim
 	url = https://github.com/vim-scripts/VOoM
+[submodule "_vim/bundle/clang_complete"]
+	path = _vim/bundle/clang_complete
+	url = https://github.com/Rip-Rip/clang_complete.git

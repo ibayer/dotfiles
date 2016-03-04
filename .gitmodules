@@ -31,3 +31,6 @@
 [submodule "_vim/bundle/voom_vim"]
 	path = _vim/bundle/voom_vim
 	url = https://github.com/vim-scripts/VOoM
+[submodule "_vim/bundle/syntastic"]
+	path = _vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git

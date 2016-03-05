@@ -22,3 +22,10 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
+# set map ctrl to nocaps only when in x session
+if [ DISPLAY ] ; then
+  setxkbmap -option ctrl:nocaps
+fi
+
+setxkbmap us

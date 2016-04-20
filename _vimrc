@@ -116,6 +116,10 @@ set wildignore+=*.o,*.obj,.git,*.pyc
 set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
 
+" Load Project specific .vimrc files "
+set exrc
+set secure  " Disable unsave commands "
+
 
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>

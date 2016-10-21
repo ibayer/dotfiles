@@ -21,7 +21,7 @@
     ;"l"  'whitespace-mode       ;; Show invisible characters
     ;"nn" 'air-narrow-dwim       ;; Narrow to region and enter normal mode
     ;"nw" 'widen
-    ;"o"  'delete-other-windows  ;; C-w o
+    "o"  'delete-other-windows  ;; C-w o
     ;"p"  'helm-show-kill-ring
     ;"s"  'ag-project            ;; Ag search from project's root
     ;"r"  'chrome-reload
@@ -29,7 +29,7 @@
     ;"S"  'delete-trailing-whitespace
     ;"t"  'gtags-reindex
     ;"T"  'gtags-find-tag
-    ;"w"  'save-buffer
+    "w"  'save-buffer
     "x"  'helm-M-x
     "y"  'yank-to-x-clipboard)
 
@@ -81,7 +81,7 @@
   ;(define-key evil-normal-state-map (kbd "S-SPC")   'air-pop-to-org-agenda)
   ;(define-key evil-insert-state-map (kbd "C-e")     'end-of-line) ;; I know...
 
-  ;(evil-define-key 'normal global-map (kbd "C-p")   'helm-projectile)
+  (evil-define-key 'normal global-map (kbd "C-p")   'helm-projectile)
   ;(evil-define-key 'normal global-map (kbd "C-S-p") 'helm-projectile-switch-project)
   ;(evil-define-key 'insert global-map (kbd "s-d")   'eval-last-sexp)
   ;(evil-define-key 'normal global-map (kbd "s-d")   'eval-defun)
@@ -209,11 +209,11 @@
   (add-hook 'evil-mode-hook 'air--config-evil)
   (evil-mode 1)
 
-  ;(use-package evil-leader
-    ;:ensure t
-    ;:config
-    ;(global-evil-leader-mode)
-    ;(air--config-evil-leader))
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode)
+    (air--config-evil-leader))
 
   ;(use-package evil-surround
     ;:ensure t

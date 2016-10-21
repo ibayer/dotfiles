@@ -42,14 +42,14 @@
 (eval-when-compile
   (require 'use-package))
 
-;; Essential settings.
-;(setq inhibit-splash-screen t
-      ;inhibit-startup-message t
-      ;inhibit-startup-echo-area-message t)
-;(menu-bar-mode -1)
-;(tool-bar-mode -1)
-;(when (boundp 'scroll-bar-mode)
-  ;(scroll-bar-mode -1))
+; Essential settings.
+(setq inhibit-splash-screen t
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(when (boundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
 ;(show-paren-mode 1)
 ;(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 ;(setq-default left-fringe-width nil)
@@ -223,9 +223,9 @@
   ;:ensure t
   ;:commands flycheck-mode)
 
-;(use-package helm-projectile
-  ;:commands (helm-projectile helm-projectile-switch-project)
-  ;:ensure t)
+(use-package helm-projectile
+  :commands (helm-projectile helm-projectile-switch-project)
+  :ensure t)
 
 ;(use-package markdown-mode
   ;:ensure t
@@ -291,12 +291,12 @@
   ;:config
   ;(which-key-mode t))
 
-;(use-package projectile
-  ;:ensure t
-  ;:defer 1
-  ;:config
-  ;(projectile-global-mode)
-  ;(setq projectile-enable-caching t))
+(use-package projectile
+  :ensure t
+  :defer 1
+  :config
+  (projectile-global-mode)
+  (setq projectile-enable-caching t))
 
 ;(use-package highlight-symbol
   ;:ensure t

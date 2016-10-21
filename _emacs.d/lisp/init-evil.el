@@ -74,7 +74,7 @@
   ;; Global bindings.
   ;(define-key evil-normal-state-map (kbd "<down>")  'evil-next-visual-line)
   ;(define-key evil-normal-state-map (kbd "<up>")    'evil-previous-visual-line)
-  ;(define-key evil-normal-state-map (kbd "-")       'helm-find-files)
+  (define-key evil-normal-state-map (kbd "-")       'helm-find-files)
   ;(define-key evil-normal-state-map (kbd "C-]")     'gtags-find-tag-from-here)
   ;(define-key evil-normal-state-map (kbd "g/")      'occur-last-search)
   ;(define-key evil-normal-state-map (kbd "[i")      'show-first-occurrence)
@@ -206,7 +206,7 @@
   :ensure t
   ;:commands (evil-mode evil-define-key)
   :config
-  ;(add-hook 'evil-mode-hook 'air--config-evil)
+  (add-hook 'evil-mode-hook 'air--config-evil)
   (evil-mode 1)
 
   ;(use-package evil-leader

@@ -114,7 +114,7 @@
 ;(use-package dash :ensure t)
 
 ;; Org Mode
-;(require 'init-org)
+(require 'init-org)
 
 ;(use-package exec-path-from-shell
   ;:ensure t

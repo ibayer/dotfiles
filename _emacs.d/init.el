@@ -87,7 +87,7 @@
 ;(require 'diminish)
 ;(require 'init-fonts)
 ;(require 'init-gtags)
-;(require 'init-evil)
+(require 'init-evil)
 ;(require 'init-twitter)
 ;(require 'init-maps)
 ;(require 'init-w3m)
@@ -116,24 +116,24 @@
 ;; Org Mode
 ;(require 'init-org)
 
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (exec-path-from-shell-initialize))
+;(use-package exec-path-from-shell
+  ;:ensure t
+  ;:config
+  ;(exec-path-from-shell-initialize))
 
-(use-package elpy
-  :ensure t
-  :mode ("\\.py\\'" . elpy-mode))
+;(use-package elpy
+  ;:ensure t
+  ;:mode ("\\.py\\'" . elpy-mode))
 
-(use-package groovy-mode
-  :ensure t
-  :mode "\\.groovy\\'"
-  :config
-  (c-set-offset 'label 4))
+;(use-package groovy-mode
+  ;:ensure t
+  ;:mode "\\.groovy\\'"
+  ;:config
+  ;(c-set-offset 'label 4))
 
-(use-package rainbow-mode
-  :ensure t
-  :commands rainbow-mode)
+;(use-package rainbow-mode
+  ;:ensure t
+  ;:commands rainbow-mode)
 
 ;(use-package wgrep
   ;:ensure t
@@ -223,9 +223,9 @@
   ;:ensure t
   ;:commands flycheck-mode)
 
-(use-package helm-projectile
-  :commands (helm-projectile helm-projectile-switch-project)
-  :ensure t)
+;(use-package helm-projectile
+  ;:commands (helm-projectile helm-projectile-switch-project)
+  ;:ensure t)
 
 ;(use-package markdown-mode
   ;:ensure t
@@ -305,14 +305,14 @@
   ;:config
   ;(setq-default highlight-symbol-idle-delay 1.5))
 
-(use-package magit
-  :ensure t
-  :defer t
-  :config
-  (setq magit-branch-arguments nil)
-  (setq magit-push-always-verify nil)
-  (setq magit-last-seen-setup-instructions "1.4.0")
-  (magit-define-popup-switch 'magit-log-popup ?f "first parent" "--first-parent"))
+;(use-package magit
+  ;:ensure t
+  ;:defer t
+  ;:config
+  ;(setq magit-branch-arguments nil)
+  ;(setq magit-push-always-verify nil)
+  ;(setq magit-last-seen-setup-instructions "1.4.0")
+  ;(magit-define-popup-switch 'magit-log-popup ?f "first parent" "--first-parent"))
 
 ;(use-package mmm-mode
   ;:ensure t

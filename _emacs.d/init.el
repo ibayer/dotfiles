@@ -334,7 +334,7 @@
   ;(mmm-add-mode-ext-class 'markdown-mode nil 'markdown-php))
 
 ;(use-package sublime-themes :ensure t)
-;(use-package gruvbox-theme :ensure t)
+(use-package gruvbox-theme :ensure t)
 ;(use-package color-theme-sanityinc-tomorrow :ensure t)
 
 ;(use-package undo-tree
@@ -525,7 +525,7 @@
 ;(when (memq window-system '(mac ns))
   ;(setq ns-use-srgb-colorspace nil))
 
-;(load-theme 'gruvbox)
+(load-theme 'gruvbox)
 
 (provide 'init)
 ;;; init.el ends here

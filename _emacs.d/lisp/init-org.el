@@ -267,12 +267,13 @@
   ;(interactive "P")
   ;(air--pop-to-file "~/Dropbox/org/vault.gpg" split))
 
-;(defun air-pop-to-org-agenda (split)
-  ;"Visit the org agenda, in the current window or a SPLIT."
-  ;(interactive "P")
-  ;(org-agenda nil "d")
-  ;(when (not split)
-    ;(delete-other-windows)))
+(defun air-pop-to-org-agenda (split)
+  "Visit the org agenda, in the current window or a SPLIT."
+  (interactive "P")
+  ;; (org-agenda nil "d")
+  (org-agenda-list)
+  (when (not split)
+    (delete-other-windows)))
 
 ;(defun air--org-insert-list-leader-or-self (char)
   ;"If on column 0, insert space-padded CHAR; otherwise insert CHAR.
@@ -348,17 +349,18 @@
   :ensure t
   :defer t
   :commands (org-capture)
-  :bind (("C-c c" .   air-org-task-capture)
-         ("C-c l" .   org-store-link)
-         ("C-c t n" . air-pop-to-org-notes)
-         ("C-c t t" . air-pop-to-org-todo)
-         ("C-c t v" . air-pop-to-org-vault)
+  :bind (;("C-c c" .   air-org-task-capture)
+         ;; ("C-c l" .   org-store-link)
+         ;; ("C-c t n" . air-pop-to-org-notes)
+         ;; ("C-c t t" . air-pop-to-org-todo)
+         ;; ("C-c t v" . air-pop-to-org-vault)
          ("C-c t a" . air-pop-to-org-agenda)
          ("C-c t A" . org-agenda)
          ("C-c f k" . org-search-view)
          ("C-c f t" . org-tags-view)
-         ("C-c f i" . air-org-goto-custom-id))
-  ;:config
+	    ;("C-c f i" . air-org-goto-custom-id)
+	 )
+  :config
   ;(require 'org-protocol)
   ;(server-start)
   ;(setq org-hide-emphasis-markers t)
@@ -368,26 +370,27 @@
         ;'((sequence "☛ TODO" "○ IN-PROGRESS" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
   ;(setq org-blank-before-new-entry '((heading . t)
                                      ;(plain-list-item . t)))
-  ;(setq org-capture-templates
-        ;'(("a" "My TODO task format." entry
-           ;(file "todo.org")
-           ;"* ☛ TODO %?")
+  (setq org-capture-templates
+        '(("a" "My TODO task format." entry
+           (file "todo.org")
+           "* ☛ TODO %?")
 
-          ;("n" "A (work-related) note." entry
-           ;(file+headline "notes.org" "Work")
-           ;"* %?\n%u\n\n"
-           ;:jump-to-captured t)
+          ("n" "A (work-related) note." entry
+           (file+headline "notes.org" "Work")
+           "* %?\n%u\n\n"
+           :jump-to-captured t)
 
-          ;("l" "A link, for reading later." entry
-           ;(file+headline "notes.org" "Reading List")
-           ;"* %:description\n%u\n\n%c\n\n%i"
-           ;:empty-lines 1)
+          ("l" "A link, for reading later." entry
+           (file+headline "notes.org" "Reading List")
+           "* %:description\n%u\n\n%c\n\n%i"
+           :empty-lines 1)
 
-          ;("w" "Nine Minutes on Monday weekly agenda." entry
-           ;(id "9A6DDE04-90B8-49ED-90B9-A55A0D1E7B28")
-           ;(function air-org-nmom-capture-template))))
-  ;; ;(setq org-default-notes-file "~/Dropbox/org/todo.org")
-  ;; ;(setq org-directory "~/Dropbox/org")
+          ;; ("w" "Nine Minutes on Monday weekly agenda." entry
+          ;;  (id "9A6DDE04-90B8-49ED-90B9-A55A0D1E7B28")
+          ;;  (function air-org-nmom-capture-template))
+	  ))
+  (setq org-default-notes-file "~/Dropbox/org/todo.org")
+  (setq org-directory "~/Dropbox/org")
 
   ;; ;;; Logging of state changes
   ;; ;(setq org-log-done (quote time))
@@ -403,7 +406,7 @@
 
   ;; ;;; Agenda configuration
  ;; ;(setq org-agenda-text-search-extra-files '(agenda-archives))
-  ;(setq org-agenda-files '("~/Dropbox/org/"))
+  (setq org-agenda-files '("~/Dropbox/org/"))
   ;(setq org-agenda-skip-scheduled-if-done t)
   ;(setq org-agenda-custom-commands
         ;'(("d" "Daily agenda and all TODOs"

@@ -371,6 +371,8 @@
   (require 'cl)
   (setq org-modules
         '(org-drill))
+(setq org-latex-create-formula-image-program 'imagemagick)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   ;(setq org-todo-keywords
         ;'((sequence "☛ TODO" "○ IN-PROGRESS" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
   ;(setq org-blank-before-new-entry '((heading . t)

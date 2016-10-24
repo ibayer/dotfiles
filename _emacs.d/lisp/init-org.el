@@ -538,11 +538,11 @@
               ;(org-indent-mode)))
 )
 
-;(use-package org-bullets
-  ;:ensure t
-  ;:config
-  ;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  ;(setq org-bullets-bullet-list '("•")))
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  (setq org-bullets-bullet-list '("•")))
 
 (provide 'init-org)
 ;;; init-org.el ends here

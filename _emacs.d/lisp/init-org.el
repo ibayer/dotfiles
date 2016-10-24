@@ -346,7 +346,7 @@
 
 ;;; Code:
 (use-package org
-  :ensure t
+  :ensure org-plus-contrib
   :defer t
   :commands (org-capture)
   :bind (;("C-c c" .   air-org-task-capture)
@@ -364,8 +364,13 @@
   ;(require 'org-protocol)
   ;(server-start)
   ;(setq org-hide-emphasis-markers t)
-  ;(setq org-modules
-        ;'(org-bbdb org-bibtex org-docview org-habit org-info org-w3m))
+  ;; (setq org-modules
+  ;;       '(org-bbdb org-bibtex org-docview org-habit org-info org-w3m))
+
+  ; cl is required for org-drill
+  (require 'cl)
+  (setq org-modules
+        '(org-drill))
   ;(setq org-todo-keywords
         ;'((sequence "☛ TODO" "○ IN-PROGRESS" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
   ;(setq org-blank-before-new-entry '((heading . t)

@@ -227,30 +227,29 @@
       ;(org-capture)
     ;(org-capture nil "a")))
 
-;(defun air-org-agenda-capture (&optional vanilla)
-  ;"Capture a task in agenda mode, using the date at point.
+(defun air-org-agenda-capture (&optional vanilla)
+  "Capture a task in agenda mode, using the date at point.
+   If VANILLA is non-nil, run the standard `org-capture'."
+  (interactive "P")
+  (if vanilla
+      (org-capture)
+    (let ((org-overriding-default-time (org-get-cursor-date)))
+      (org-capture nil "a"))))
 
-;If VANILLA is non-nil, run the standard `org-capture'."
-  ;(interactive "P")
-  ;(if vanilla
-      ;(org-capture)
-    ;(let ((org-overriding-default-time (org-get-cursor-date)))
-      ;(org-capture nil "a"))))
+(defun air-org-agenda-toggle-date (current-line)
+  "Toggle `SCHEDULED' and `DEADLINE' tag in the capture buffer."
+  (interactive "P")
+  (save-excursion
+    (let ((search-limit (if current-line
+                            (line-end-position)
+                          (point-max))))
 
-;(defun air-org-agenda-toggle-date (current-line)
-  ;"Toggle `SCHEDULED' and `DEADLINE' tag in the capture buffer."
-  ;(interactive "P")
-  ;(save-excursion
-    ;(let ((search-limit (if current-line
-                            ;(line-end-position)
-                          ;(point-max))))
-
-      ;(if current-line (beginning-of-line)
-        ;(beginning-of-buffer))
-      ;(if (search-forward "DEADLINE:" search-limit t)
-          ;(replace-match "SCHEDULED:")
-        ;(and (search-forward "SCHEDULED:" search-limit t)
-             ;(replace-match "DEADLINE:"))))))
+      (if current-line (beginning-of-line)
+        (beginning-of-buffer))
+      (if (search-forward "DEADLINE:" search-limit t)
+          (replace-match "SCHEDULED:")
+        (and (search-forward "SCHEDULED:" search-limit t)
+             (replace-match "DEADLINE:"))))))
 
 ;(defun air-pop-to-org-todo (split)
   ;"Visit my main TODO list, in the current window or a SPLIT."
@@ -285,22 +284,22 @@
       ;(insert (concat " " char " "))
     ;(insert char)))
 
-;(defun air--org-swap-tags (tags)
-  ;"Replace any tags on the current headline with TAGS.
+(defun air--org-swap-tags (tags)
+  "Replace any tags on the current headline with TAGS.
 
-;The assumption is that TAGS will be a string conforming to Org Mode's
-;tag format specifications, or nil to remove all tags."
-  ;(let ((old-tags (org-get-tags-string))
-        ;(tags (if tags
-                  ;(concat " " tags)
-                ;"")))
-    ;(save-excursion
-      ;(beginning-of-line)
-      ;(re-search-forward
-       ;(concat "[ \t]*" (regexp-quote old-tags) "[ \t]*$")
-       ;(line-end-position) t)
-      ;(replace-match tags)
-      ;(org-set-tags t))))
+The assumption is that TAGS will be a string conforming to Org Mode's
+tag format specifications, or nil to remove all tags."
+  (let ((old-tags (org-get-tags-string))
+        (tags (if tags
+                  (concat " " tags)
+                "")))
+    (save-excursion
+      (beginning-of-line)
+      (re-search-forward
+       (concat "[ \t]*" (regexp-quote old-tags) "[ \t]*$")
+       (line-end-position) t)
+      (replace-match tags)
+      (org-set-tags t))))
 
 ;(defun air-org-goto-first-child ()
   ;"Goto the first child, even if it is invisible.
@@ -319,29 +318,29 @@
         ;(goto-char pos) nil))))
 
 
-;(defun air-org-set-tags (tag)
-  ;"Add TAG if it is not in the list of tags, remove it otherwise.
+(defun air-org-set-tags (tag)
+  "Add TAG if it is not in the list of tags, remove it otherwise.
 
-;TAG is chosen interactively from the global tags completion table."
-  ;(interactive
-   ;(list (let ((org-last-tags-completion-table
-                ;(if (derived-mode-p 'org-mode)
-                    ;(org-uniquify
-                     ;(delq nil (append (org-get-buffer-tags)
-                                       ;(org-global-tags-completion-table))))
-                  ;(org-global-tags-completion-table))))
-           ;(completing-read
-            ;"Tag: " 'org-tags-completion-function nil nil nil
-            ;'org-tags-history))))
-  ;(let* ((cur-list (org-get-tags))
-         ;(new-tags (mapconcat 'identity
-                              ;(if (member tag cur-list)
-                                  ;(delete tag cur-list)
-                                ;(append cur-list (list tag)))
-                              ;":"))
-         ;(new (if (> (length new-tags) 1) (concat " :" new-tags ":")
-                ;nil)))
-    ;(air--org-swap-tags new)))
+TAG is chosen interactively from the global tags completion table."
+  (interactive
+   (list (let ((org-last-tags-completion-table
+                (if (derived-mode-p 'org-mode)
+                    (org-uniquify
+                     (delq nil (append (org-get-buffer-tags)
+                                       (org-global-tags-completion-table))))
+                  (org-global-tags-completion-table))))
+           (completing-read
+            "Tag: " 'org-tags-completion-function nil nil nil
+            'org-tags-history))))
+  (let* ((cur-list (org-get-tags))
+         (new-tags (mapconcat 'identity
+                              (if (member tag cur-list)
+                                  (delete tag cur-list)
+                                (append cur-list (list tag)))
+                              ":"))
+         (new (if (> (length new-tags) 1) (concat " :" new-tags ":")
+                nil)))
+    (air--org-swap-tags new)))
 
 
 ;;; Code:
@@ -442,15 +441,16 @@
 
   ;(set-face-attribute 'org-upcoming-deadline nil :foreground "gold1")
 
-  ;(evil-leader/set-key-for-mode 'org-mode
+  (evil-leader/set-key-for-mode 'org-mode
     ;"$"  'org-archive-subtree
     ;"a"  'org-agenda
     ;"c"  'air-org-set-category-property
-    ;"d"  'org-deadline
+    "d"  'org-deadline
     ;"ns" 'org-narrow-to-subtree
     ;"p"  'org-set-property
-    ;"s"  'org-schedule
-    ;"t"  'air-org-set-tags)
+    "s"  'org-schedule
+    "t"  'air-org-set-tags
+)
 
   (add-hook 'org-agenda-mode-hook
             (lambda ()
@@ -476,15 +476,15 @@
               ;(define-key org-agenda-mode-map (kbd "\\") air-org-run-shortcuts))
               ))
 
-  ;(add-hook 'org-capture-mode-hook
-            ;(lambda ()
-              ;(evil-define-key '(normal insert) org-capture-mode-map (kbd "C-d") 'air-org-agenda-toggle-date)
-              ;(evil-define-key 'normal org-capture-mode-map "+" 'org-priority-up)
-              ;(evil-define-key 'normal org-capture-mode-map "-" 'org-priority-down)
+  (add-hook 'org-capture-mode-hook
+            (lambda ()
+              (evil-define-key '(normal insert) org-capture-mode-map (kbd "C-d") 'air-org-agenda-toggle-date)
+              (evil-define-key 'normal org-capture-mode-map "+" 'org-priority-up)
+              (evil-define-key 'normal org-capture-mode-map "-" 'org-priority-down)
               ;(evil-define-key '(normal insert) org-capture-mode-map (kbd "C-=" ) 'org-priority-up)
               ;(evil-define-key '(normal insert) org-capture-mode-map (kbd "C--" ) 'org-priority-down)
               ;;; TODO this seems like a hack
-              ;(evil-insert-state)))
+              (evil-insert-state)))
 
   ;(add-hook 'org-mode-hook
             ;(lambda ()

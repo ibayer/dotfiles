@@ -12,17 +12,17 @@
     ;"a=" 'my-align-single-equals
     ;"b"  'helm-mini             ;; Switch to another buffer
     ;"B"  'magit-blame-toggle
-    "c"  'comment-dwim
+    "c"  'comment-dwim	   ;
     ;"d"  'kill-this-buffer
     ;"D"  'open-current-line-in-codebase-search
     ;"f"  'helm-imenu            ;; Jump to function in buffer
-    ;"g"  'magit-status
+    "g"  'magit-status
     ;"h"  'fontify-and-browse    ;; HTML-ize the buffer and browse the result
     ;"l"  'whitespace-mode       ;; Show invisible characters
     ;"nn" 'air-narrow-dwim       ;; Narrow to region and enter normal mode
     ;"nw" 'widen
     "o"  'delete-other-windows  ;; C-w o
-    ;"p"  'helm-show-kill-ring
+    "p"  'helm-show-kill-ring
     ;"s"  'ag-project            ;; Ag search from project's root
     ;"r"  'chrome-reload
     ;"R"  (lambda () (interactive) (font-lock-fontify-buffer) (redraw-display))
@@ -33,12 +33,13 @@
     "x"  'helm-M-x
     "y"  'yank-to-x-clipboard)
 
-  (defun magit-blame-toggle ()
-    "Toggle magit-blame-mode on and off interactively."
-    (interactive)
-    (if (and (boundp 'magit-blame-mode) magit-blame-mode)
-        (magit-blame-quit)
-      (call-interactively 'magit-blame))))
+  ;; (defun magit-blame-toggle ()
+  ;;   "Toggle magit-blame-mode on and off interactively."
+  ;;   (interactive)
+  ;;   (if (and (boundp 'magit-blame-mode) magit-blame-mode)
+  ;;       (magit-blame-quit)
+  ;;     (call-interactively 'magit-blame)))
+  )
 
 (defun air--config-evil ()
   "Configure evil mode."
@@ -57,19 +58,18 @@
   ;(delete 'term-mode evil-insert-state-modes)
 
   ; Use insert state in these additional modes.
-  ;(dolist (mode '(twittering-edit-mode
-                  ;magit-log-edit-mode))
-    ;(add-to-list 'evil-insert-state-modes mode))
+  (dolist (mode '(magit-log-edit-mode))
+    (add-to-list 'evil-insert-state-modes mode))
 
   ;(add-to-list 'evil-buffer-regexps '("\\*Flycheck"))
 
-  ;(evil-add-hjkl-bindings occur-mode-map 'emacs
-    ;(kbd "/")       'evil-search-forward
-    ;(kbd "n")       'evil-search-next
-    ;(kbd "N")       'evil-search-previous
-    ;(kbd "C-d")     'evil-scroll-down
-    ;(kbd "C-u")     'evil-scroll-up
-    ;(kbd "C-w C-w") 'other-window)
+  (evil-add-hjkl-bindings occur-mode-map 'emacs
+    (kbd "/")       'evil-search-forward
+    (kbd "n")       'evil-search-next
+    (kbd "N")       'evil-search-previous
+    (kbd "C-d")     'evil-scroll-down
+    (kbd "C-u")     'evil-scroll-up
+    (kbd "C-w C-w") 'other-window)
 
   ;; Global bindings.
   ;(define-key evil-normal-state-map (kbd "<down>")  'evil-next-visual-line)

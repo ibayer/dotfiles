@@ -373,8 +373,8 @@
         '(org-drill))
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
-  ;(setq org-todo-keywords
-        ;'((sequence "☛ TODO" "○ IN-PROGRESS" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
+  (setq org-todo-keywords
+        '((sequence "☛ TODO" "○ IN-PROGRESS" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
   ;(setq org-blank-before-new-entry '((heading . t)
                                      ;(plain-list-item . t)))
   (setq org-capture-templates
@@ -400,9 +400,9 @@
   (setq org-directory "~/Dropbox/org")
 
   ;; ;;; Logging of state changes
-  ;; ;(setq org-log-done (quote time))
-  ;; ;(setq org-log-redeadline (quote time))
-  ;; ;(setq org-log-reschedule (quote time))
+  (setq org-log-done (quote time))
+  (setq org-log-redeadline (quote time))
+  (setq org-log-reschedule (quote time))
   ;; ;(setq org-log-into-drawer t)
 
   ;; ;(setq org-insert-heading-respect-content t)
@@ -452,17 +452,17 @@
     ;"s"  'org-schedule
     ;"t"  'air-org-set-tags)
 
-  ;(add-hook 'org-agenda-mode-hook
-            ;(lambda ()
+  (add-hook 'org-agenda-mode-hook
+            (lambda ()
               ;(setq org-habit-graph-column 50)
               ;(define-key org-agenda-mode-map "H"          'beginning-of-buffer)
-              ;(define-key org-agenda-mode-map "j"          'org-agenda-next-item)
-              ;(define-key org-agenda-mode-map "k"          'org-agenda-previous-item)
+              (define-key org-agenda-mode-map "j"          'org-agenda-next-item)
+              (define-key org-agenda-mode-map "k"          'org-agenda-previous-item)
               ;(define-key org-agenda-mode-map "J"          'air-org-agenda-next-header)
               ;(define-key org-agenda-mode-map "K"          'air-org-agenda-previous-header)
               ;(define-key org-agenda-mode-map "n"          'org-agenda-next-date-line)
               ;(define-key org-agenda-mode-map "p"          'org-agenda-previous-date-line)
-              ;(define-key org-agenda-mode-map "c"          'air-org-agenda-capture)
+              (define-key org-agenda-mode-map "c"          'air-org-agenda-capture)
               ;(define-key org-agenda-mode-map "R"          'org-revert-all-org-buffers)
               ;(define-key org-agenda-mode-map "y"          'air-org-bulk-copy-headlines)
               ;(define-key org-agenda-mode-map "/"          'counsel-grep-or-swiper)
@@ -473,7 +473,8 @@
               ;(define-key air-org-run-shortcuts "t" (tiny-menu-run-item "org-things"))
               ;(define-key air-org-run-shortcuts "c" (tiny-menu-run-item "org-captures"))
               ;(define-key air-org-run-shortcuts "l" (tiny-menu-run-item "org-links"))
-              ;(define-key org-agenda-mode-map (kbd "\\") air-org-run-shortcuts)))
+              ;(define-key org-agenda-mode-map (kbd "\\") air-org-run-shortcuts))
+              ))
 
   ;(add-hook 'org-capture-mode-hook
             ;(lambda ()

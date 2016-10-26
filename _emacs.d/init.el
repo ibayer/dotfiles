@@ -74,7 +74,16 @@
 
 (defvar backup-dir "~/.emacs.d/backups/")
 (setq backup-directory-alist (list (cons "." backup-dir)))
-(setq make-backup-files nil)
+(setq make-backup-files t)
+
+; backup files under version control
+(setq vc-make-backup-files t)
+
+(setq version-control t ;; Use version numbers for backups.
+    kept-new-versions 10 ;; Number of newest versions to keep.
+    kept-old-versions 0 ;; Number of oldest versions to keep.
+    delete-old-versions t ;; Don't ask to delete excess backup versions.
+    backup-by-copying t) ;; Copy all files, don't rename them.
 
 ;;; File type overrides.
 ;(add-to-list 'auto-mode-alist '("\\.html$" . web-mode))

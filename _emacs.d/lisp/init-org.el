@@ -218,14 +218,14 @@
     ;(org-insert-todo-heading t t))
   ;(org-schedule nil (format-time-string "%Y-%m-%d")))
 
-;(defun air-org-task-capture (&optional vanilla)
-  ;"Capture a task with my default template.
+(defun air-org-task-capture (&optional vanilla)
+  "Capture a task with my default template.
 
-;If VANILLA is non-nil, run the standard `org-capture'."
-  ;(interactive "P")
-  ;(if vanilla
-      ;(org-capture)
-    ;(org-capture nil "a")))
+If VANILLA is non-nil, run the standard `org-capture'."
+  (interactive "P")
+  (if vanilla
+      (org-capture)
+    (org-capture nil "a")))
 
 (defun air-org-agenda-capture (&optional vanilla)
   "Capture a task in agenda mode, using the date at point.
@@ -251,15 +251,15 @@
         (and (search-forward "SCHEDULED:" search-limit t)
              (replace-match "DEADLINE:"))))))
 
-;(defun air-pop-to-org-todo (split)
-  ;"Visit my main TODO list, in the current window or a SPLIT."
-  ;(interactive "P")
-  ;(air--pop-to-file "~/Dropbox/org/todo.org" split))
+(defun air-pop-to-org-todo (split)
+  "Visit my main TODO list, in the current window or a SPLIT."
+  (interactive "P")
+  (air--pop-to-file "~/Dropbox/org/todo.org" split))
 
-;(defun air-pop-to-org-notes (split)
-  ;"Visit my main notes file, in the current window or a SPLIT."
-  ;(interactive "P")
-  ;(air--pop-to-file "~/Dropbox/org/notes.org" split))
+(defun air-pop-to-org-notes (split)
+  "Visit my main notes file, in the current window or a SPLIT."
+  (interactive "P")
+  (air--pop-to-file "~/Dropbox/org/notes.org" split))
 
 ;(defun air-pop-to-org-vault (split)
   ;"Visit my encrypted vault file, in the current window or a SPLIT."
@@ -348,10 +348,10 @@ TAG is chosen interactively from the global tags completion table."
   :ensure org-plus-contrib
   :defer t
   :commands (org-capture)
-  :bind (;("C-c c" .   air-org-task-capture)
+  :bind (("C-c c" .   air-org-task-capture)
          ;; ("C-c l" .   org-store-link)
-         ;; ("C-c t n" . air-pop-to-org-notes)
-         ;; ("C-c t t" . air-pop-to-org-todo)
+         ("C-c t n" . air-pop-to-org-notes)
+         ("C-c t t" . air-pop-to-org-todo)
          ;; ("C-c t v" . air-pop-to-org-vault)
          ("C-c t a" . air-pop-to-org-agenda)
          ("C-c t A" . org-agenda)

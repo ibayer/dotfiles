@@ -91,7 +91,7 @@
 
 ;;; My own configurations, which are bundled in my dotfiles.
 ;(require 'init-platform)
-;(require 'init-global-functions)
+(require 'init-global-functions)
 
 ;(require 'diminish)
 ;(require 'init-fonts)

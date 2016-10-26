@@ -92,44 +92,44 @@
   ;(interactive "P")
   ;(air--org-display-tag "manager" focus))
 
-;(defun air-org-skip-if-not-closed-today (&optional subtree)
-  ;"Skip entries that were not closed today.
+(defun air-org-skip-if-not-closed-today (&optional subtree)
+  "Skip entries that were not closed today.
 
-;Skip the current entry unless SUBTREE is not nil, in which case skip
-;the entire subtree."
-  ;(let ((end (if subtree (subtree-end (save-excursion (org-end-of-subtree t)))
-               ;(save-excursion (progn (outline-next-heading) (1- (point))))))
-        ;(today-prefix (format-time-string "%Y-%m-%d")))
-    ;(if (save-excursion
-          ;(and (re-search-forward org-closed-time-regexp end t)
-               ;(string= (substring (match-string-no-properties 1) 0 10) today-prefix)))
-        ;nil
-      ;end)))
+Skip the current entry unless SUBTREE is not nil, in which case skip
+the entire subtree."
+  (let ((end (if subtree (subtree-end (save-excursion (org-end-of-subtree t)))
+               (save-excursion (progn (outline-next-heading) (1- (point))))))
+        (today-prefix (format-time-string "%Y-%m-%d")))
+    (if (save-excursion
+          (and (re-search-forward org-closed-time-regexp end t)
+               (string= (substring (match-string-no-properties 1) 0 10) today-prefix)))
+        nil
+      end)))
 
-;(defun air-org-skip-if-habit (&optional subtree)
-  ;"Skip an agenda entry if it has a STYLE property equal to \"habit\".
+(defun air-org-skip-if-habit (&optional subtree)
+  "Skip an agenda entry if it has a STYLE property equal to \"habit\".
 
-;Skip the current entry unless SUBTREE is not nil, in which case skip
-;the entire subtree."
-  ;(let ((end (if subtree (subtree-end (save-excursion (org-end-of-subtree t)))
-                ;(save-excursion (progn (outline-next-heading) (1- (point)))))))
-    ;(if (string= (org-entry-get nil "STYLE") "habit")
-        ;end
-      ;nil)))
+Skip the current entry unless SUBTREE is not nil, in which case skip
+the entire subtree."
+  (let ((end (if subtree (subtree-end (save-excursion (org-end-of-subtree t)))
+                (save-excursion (progn (outline-next-heading) (1- (point)))))))
+    (if (string= (org-entry-get nil "STYLE") "habit")
+        end
+      nil)))
 
-;(defun air-org-skip-if-priority (priority &optional subtree)
-  ;"Skip an agenda item if it has a priority of PRIORITY.
+(defun air-org-skip-if-priority (priority &optional subtree)
+  "Skip an agenda item if it has a priority of PRIORITY.
 
-;PRIORITY may be one of the characters ?A, ?B, or ?C.
+PRIORITY may be one of the characters ?A, ?B, or ?C.
 
-;Skips the current entry unless SUBTREE is not nil."
-  ;(let ((end (if subtree (subtree-end (save-excursion (org-end-of-subtree t)))
-                ;(save-excursion (progn (outline-next-heading) (1- (point))))))
-        ;(pri-value (* 1000 (- org-lowest-priority priority)))
-        ;(pri-current (org-get-priority (thing-at-point 'line t))))
-    ;(if (= pri-value pri-current)
-        ;end
-      ;nil)))
+Skips the current entry unless SUBTREE is not nil."
+  (let ((end (if subtree (subtree-end (save-excursion (org-end-of-subtree t)))
+                (save-excursion (progn (outline-next-heading) (1- (point))))))
+        (pri-value (* 1000 (- org-lowest-priority priority)))
+        (pri-current (org-get-priority (thing-at-point 'line t))))
+    (if (= pri-value pri-current)
+        end
+      nil)))
 
 ;(defun air--org-global-custom-ids ()
   ;"Find custom ID fields in all org agenda files."
@@ -414,30 +414,30 @@ TAG is chosen interactively from the global tags completion table."
  ;; ;(setq org-agenda-text-search-extra-files '(agenda-archives))
   (setq org-agenda-files '("~/Dropbox/org/"))
   ;(setq org-agenda-skip-scheduled-if-done t)
-  ;(setq org-agenda-custom-commands
-        ;'(("d" "Daily agenda and all TODOs"
-           ;((tags "PRIORITY=\"A\""
-                  ;((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                   ;(org-agenda-overriding-header "High-priority unfinished tasks:")))
-            ;(agenda ""
-                    ;((org-agenda-ndays 1)
-                     ;(org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'any))))
-            ;(alltodo ""
-                     ;((org-agenda-skip-function '(or (air-org-skip-if-habit)
-                                                     ;(air-org-skip-if-priority ?A)
-                                                     ;(org-agenda-skip-if nil '(scheduled deadline))))
-                      ;(org-agenda-overriding-header "ALL normal priority tasks:")))
+  (setq org-agenda-custom-commands
+        '(("d" "Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda ""
+                    ((org-agenda-ndays 1)
+                     (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'any))))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-if-habit)
+                                                     (air-org-skip-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:")))
 
-            ;(agenda ""
-                    ;((org-agenda-ndays 1)
-                     ;(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'any))
-                     ;(org-agenda-overriding-header "Reminders for today:")))
-            ;(todo "✓ DONE"
-                     ;((org-agenda-skip-function 'air-org-skip-if-not-closed-today)
-                      ;(org-agenda-overriding-header "Closed today:"))
-                     ;)
-            ;)
-           ;((org-agenda-compact-blocks t)))))
+            (agenda ""
+                    ((org-agenda-ndays 1)
+                     (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'any))
+                     (org-agenda-overriding-header "Reminders for today:")))
+            (todo "✓ DONE"
+                     ((org-agenda-skip-function 'air-org-skip-if-not-closed-today)
+                      (org-agenda-overriding-header "Closed today:"))
+                     )
+            )
+           ((org-agenda-compact-blocks t)))))
 
   ;(set-face-attribute 'org-upcoming-deadline nil :foreground "gold1")
 

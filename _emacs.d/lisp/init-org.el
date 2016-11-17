@@ -254,12 +254,17 @@ If VANILLA is non-nil, run the standard `org-capture'."
 (defun air-pop-to-org-todo (split)
   "Visit my main TODO list, in the current window or a SPLIT."
   (interactive "P")
-  (air--pop-to-file "~/Dropbox/org/todo.org" split))
+  (air--pop-to-file "~/git/org/todo.org" split))
 
-(defun air-pop-to-org-notes (split)
+(defun air-pop-to-org-inbox (split)
   "Visit my main notes file, in the current window or a SPLIT."
   (interactive "P")
-  (air--pop-to-file "~/Dropbox/org/notes.org" split))
+  (air--pop-to-file "~/git/org/inbox.org" split))
+
+(defun air-pop-to-org-projects (split)
+  "Visit my main notes file, in the current window or a SPLIT."
+  (interactive "P")
+  (air--pop-to-file "~/git/org/projects/projects.org" split))
 
 ;(defun air-pop-to-org-vault (split)
   ;"Visit my encrypted vault file, in the current window or a SPLIT."
@@ -350,7 +355,8 @@ TAG is chosen interactively from the global tags completion table."
   :commands (org-capture)
   :bind (("C-c c" .   air-org-task-capture)
          ;; ("C-c l" .   org-store-link)
-         ("C-c t n" . air-pop-to-org-notes)
+         ("C-c t i" . air-pop-to-org-inbox)
+         ("C-c t p" . air-pop-to-org-projects)
          ("C-c t t" . air-pop-to-org-todo)
          ;; ("C-c t v" . air-pop-to-org-vault)
          ("C-c t a" . air-pop-to-org-agenda)
@@ -373,7 +379,7 @@ TAG is chosen interactively from the global tags completion table."
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (setq org-todo-keywords
-        '((sequence "☛ TODO" "○ IN-PROGRESS" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
+        '((sequence "☛ TODO" "○ NEXT" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
   ;(setq org-blank-before-new-entry '((heading . t)
                                      ;(plain-list-item . t)))
   (setq org-capture-templates
@@ -395,8 +401,8 @@ TAG is chosen interactively from the global tags completion table."
           ;;  (id "9A6DDE04-90B8-49ED-90B9-A55A0D1E7B28")
           ;;  (function air-org-nmom-capture-template))
 	  ))
-  (setq org-default-notes-file "~/Dropbox/org/todo.org")
-  (setq org-directory "~/Dropbox/org")
+  (setq org-default-notes-file "~/git/org/todo.org")
+  (setq org-directory "~/git/org")
 
   ;; ;;; Logging of state changes
   (setq org-log-done (quote time))
@@ -412,8 +418,10 @@ TAG is chosen interactively from the global tags completion table."
 
   ;; ;;; Agenda configuration
  ;; ;(setq org-agenda-text-search-extra-files '(agenda-archives))
-  (setq org-agenda-files '("~/Dropbox/org/"))
+  (setq org-agenda-files '("~/git/org/" "~/git/org/projects"))
   (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-use-property-inheritance t)
+  (setq org-agenda-overriding-columns-format " %8TODO %PRIORITY %10Project %60ITEM ")
   (setq org-agenda-custom-commands
         '(("d" "Daily agenda and all TODOs"
            ((tags "PRIORITY=\"A\""

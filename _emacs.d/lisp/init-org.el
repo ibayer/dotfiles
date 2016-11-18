@@ -266,6 +266,11 @@ If VANILLA is non-nil, run the standard `org-capture'."
   (interactive "P")
   (air--pop-to-file "~/git/org/projects/projects.org" split))
 
+(defun air-pop-to-org-knowledge (split)
+  "Visit my main notes file, in the current window or a SPLIT."
+  (interactive "P")
+  (air--pop-to-file "~/git/org/knowledge-vault/collection.org" split))
+
 ;(defun air-pop-to-org-vault (split)
   ;"Visit my encrypted vault file, in the current window or a SPLIT."
   ;(interactive "P")
@@ -357,6 +362,7 @@ TAG is chosen interactively from the global tags completion table."
          ;; ("C-c l" .   org-store-link)
          ("C-c t i" . air-pop-to-org-inbox)
          ("C-c t p" . air-pop-to-org-projects)
+         ("C-c t k" . air-pop-to-org-knowledge)
          ("C-c t t" . air-pop-to-org-todo)
          ;; ("C-c t v" . air-pop-to-org-vault)
          ("C-c t a" . air-pop-to-org-agenda)

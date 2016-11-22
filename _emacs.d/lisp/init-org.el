@@ -385,7 +385,7 @@ TAG is chosen interactively from the global tags completion table."
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (setq org-todo-keywords
-        '((sequence "☛ TODO" "NEXT" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
+        '((sequence "NEXT" "☛ TODO" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
   ;(setq org-blank-before-new-entry '((heading . t)
                                      ;(plain-list-item . t)))
   (setq org-capture-templates
@@ -434,7 +434,7 @@ TAG is chosen interactively from the global tags completion table."
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
             (agenda ""
-                    ((org-agenda-ndays 3)
+                    ((org-agenda-ndays 1)
                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'any))))
             (alltodo ""
                      ((org-agenda-skip-function '(or (air-org-skip-if-habit)

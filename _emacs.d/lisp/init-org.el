@@ -459,7 +459,7 @@ TAG is chosen interactively from the global tags completion table."
 
   (evil-leader/set-key-for-mode 'org-mode
     ;"$"  'org-archive-subtree
-    ;"a"  'org-agenda
+    "a"  'org-agenda
     ;"c"  'air-org-set-category-property
     "d"  'org-deadline
     ;"ns" 'org-narrow-to-subtree

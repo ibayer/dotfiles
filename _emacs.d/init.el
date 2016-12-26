@@ -125,6 +125,7 @@
 ;; Org Mode
 (require 'init-org)
 
+
 ;(use-package exec-path-from-shell
   ;:ensure t
   ;:config
@@ -198,6 +199,15 @@
   (setq helm-buffer-max-length 40)
   (define-key helm-map (kbd "S-SPC") 'helm-toggle-visible-mark)
   (define-key helm-find-files-map (kbd "C-k") 'helm-find-files-up-one-level))
+
+(use-package helm-bibtex
+  :ensure t
+  :config
+  (setq bibtex-completion-bibliography
+      '("~/git/thesis/references-biblatex.bib"))
+  (setq bibtex-completion-pdf-field "File")
+  (setq bibtex-completion-library-path '("~/Dropbox/paper-collection/pdfs"))
+  (setq bibtex-completion-notes-path "~/Dropbox/paper-collection/notes.org"))
 
 ;(use-package company
   ;:ensure t
@@ -322,6 +332,12 @@
   (setq magit-push-always-verify nil)
   (setq magit-last-seen-setup-instructions "1.4.0")
   (magit-define-popup-switch 'magit-log-popup ?f "first parent" "--first-parent"))
+
+(use-package tex
+  :defer t
+  :ensure auctex
+  :config
+  (setq TeX-auto-save t))
 
 ;(use-package mmm-mode
   ;:ensure t

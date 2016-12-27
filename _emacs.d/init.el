@@ -203,11 +203,31 @@
 (use-package helm-bibtex
   :ensure t
   :config
-  (setq bibtex-completion-bibliography
-      '("~/git/thesis/references-biblatex.bib"))
   (setq bibtex-completion-pdf-field "File")
+  (setq bibtex-completion-bibliography '("~/git/thesis/references-biblatex.bib"))
   (setq bibtex-completion-library-path '("~/Dropbox/paper-collection/pdfs"))
   (setq bibtex-completion-notes-path "~/Dropbox/paper-collection/notes.org"))
+
+(use-package org-ref
+  :ensure t
+  :config
+  (setq org-ref-bibliography-notes "~/Dropbox/paper-collection/notes.org"
+        org-ref-default-bibliography '("~/git/thesis/references-biblatex.bib")
+        org-ref-pdf-directory "~/Dropbox/paper-collection/pdfs/")
+
+
+    (defun my/org-ref-open-pdf-at-point ()
+    "Open the pdf for bibtex key under point if it exists."
+    (interactive)
+    (let* ((results (org-ref-get-bibtex-key-and-file))
+	    (key (car results))
+	    (pdf-file (car (bibtex-completion-find-pdf key))))
+	(if (file-exists-p pdf-file)
+	    (org-open-file pdf-file)
+	(message "No PDF found for %s" key))))
+
+    (setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point)
+  )
 
 ;(use-package company
   ;:ensure t

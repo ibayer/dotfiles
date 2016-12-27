@@ -72,8 +72,8 @@
     (kbd "C-w C-w") 'other-window)
 
   ;; Global bindings.
-  ;(define-key evil-normal-state-map (kbd "<down>")  'evil-next-visual-line)
-  ;(define-key evil-normal-state-map (kbd "<up>")    'evil-previous-visual-line)
+  (define-key evil-normal-state-map (kbd "<down>")  'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "<up>")    'evil-previous-visual-line)
   (define-key evil-normal-state-map (kbd "-")       'helm-find-files)
   ;(define-key evil-normal-state-map (kbd "C-]")     'gtags-find-tag-from-here)
   ;(define-key evil-normal-state-map (kbd "g/")      'occur-last-search)

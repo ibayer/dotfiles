@@ -377,6 +377,9 @@ TAG is chosen interactively from the global tags completion table."
   ;(setq org-hide-emphasis-markers t)
   ;; (setq org-modules
   ;;       '(org-bbdb org-bibtex org-docview org-habit org-info org-w3m))
+  (require 'org-habit)
+  (setq org-modules
+	'(org-bibtex org-docview org-habit org-info org-w3m))
 
   ; cl is required for org-drill
   (require 'cl)
@@ -460,6 +463,7 @@ TAG is chosen interactively from the global tags completion table."
   (evil-leader/set-key-for-mode 'org-mode
     "$"  'org-archive-subtree
     "a"  'org-agenda
+    "l"  'org-toggle-latex-fragment
     ;"c"  'air-org-set-category-property
     "d"  'org-deadline
     ;"ns" 'org-narrow-to-subtree
@@ -470,7 +474,7 @@ TAG is chosen interactively from the global tags completion table."
 
   (add-hook 'org-agenda-mode-hook
             (lambda ()
-              ;(setq org-habit-graph-column 50)
+              (setq org-habit-graph-column 50)
               ;(define-key org-agenda-mode-map "H"          'beginning-of-buffer)
               (define-key org-agenda-mode-map "j"          'org-agenda-next-item)
               (define-key org-agenda-mode-map "k"          'org-agenda-previous-item)

@@ -387,6 +387,20 @@ TAG is chosen interactively from the global tags completion table."
         '(org-drill))
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-image-actual-width nil)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (ditaa . t)
+   (dot . t)
+   (emacs-lisp . t)
+   (gnuplot . nil)
+   (latex . t) ; this is the entry to activate LaTeX
+   (python . t)
+   (sh . t)
+   (sql . nil)
+   (sqlite . nil)))
+
   (setq org-todo-keywords
         '((sequence "NEXT" "☛ TODO" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
   ;(setq org-blank-before-new-entry '((heading . t)

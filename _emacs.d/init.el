@@ -205,7 +205,15 @@
   :ensure auctex
   :config
   (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil)
+  (setq reftex-plug-into-AUCTeX t)
 
+  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
 
   ;; extra outline headers 
@@ -236,12 +244,29 @@
   (setq bibtex-completion-pdf-field "File")
   (setq bibtex-completion-bibliography '("~/git/thesis/references-biblatex.bib"))
   (setq bibtex-completion-library-path '("~/Dropbox/paper-collection/pdfs"))
-  (setq bibtex-completion-notes-path "~/Dropbox/paper-collection/notes.org"))
+  (setq bibtex-completion-notes-path "~/git/org/knowledge-vault/paper_notes.org"))
+
 
 (use-package org-ref
   :ensure t
   :config
-  (setq org-ref-bibliography-notes "~/Dropbox/paper-collection/notes.org"
+ (require 'org-ref-pdf)
+ ;; (require 'org-ref-autoloads)
+ (require 'org-ref-bibtex)
+ (require 'org-ref-pubmed)
+ (require 'org-ref-glossary)
+ (require 'org-ref-isbn)
+ (require 'org-ref-latex)
+ (require 'org-ref-scopus)
+ ;; (require 'org-ref-pkg)
+ (require 'org-ref-scifinder)
+ (require 'org-ref-sci-id)
+ (require 'org-ref-url-utils)
+ (require 'org-ref-wos)
+ (require 'x2bib)
+ (require 'doi-utils)
+ (require 'org-ref-arxiv)
+  (setq org-ref-bibliography-notes "~/git/org/knowledge-vault/paper_notes.org"
         org-ref-default-bibliography '("~/git/thesis/references-biblatex.bib")
         org-ref-pdf-directory "~/Dropbox/paper-collection/pdfs/")
 
@@ -257,7 +282,14 @@
 	(message "No PDF found for %s" key))))
 
     (setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point)
-  )
+    )
+
+ ;; (use-package ess-site
+ ;;   :commands R)
+
+  (use-package ess
+  :ensure t
+  :init (require 'ess-site))
 
 ;(use-package company
   ;:ensure t

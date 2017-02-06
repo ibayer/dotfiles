@@ -447,11 +447,12 @@ TAG is chosen interactively from the global tags completion table."
   (setq org-agenda-overriding-columns-format " %8TODO %PRIORITY %10Project %60ITEM ")
   (setq org-agenda-custom-commands
         '(("d" "Daily agenda and all TODOs"
-           ((tags "PRIORITY=\"A\""
+           (
+	    (tags "PRIORITY=\"A\""
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
             (agenda ""
-                    ((org-agenda-ndays 1)
+                    ((org-agenda-span 'day)
                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'any))))
             (alltodo ""
                      ((org-agenda-skip-function '(or (air-org-skip-if-habit)
@@ -461,7 +462,7 @@ TAG is chosen interactively from the global tags completion table."
                       (org-agenda-overriding-header "ALL normal priority tasks:")))
 
             (agenda ""
-                    ((org-agenda-ndays 1)
+                    ((org-agenda-span 2)
                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'any))
                      (org-agenda-overriding-header "Reminders for today:")))
             (todo "✓ DONE"

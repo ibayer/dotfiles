@@ -287,9 +287,96 @@
  ;; (use-package ess-site
  ;;   :commands R)
 
-  (use-package ess
+  ;; (use-package ess
+  ;; :ensure t
+  ;; :init (require 'ess-site))
+
+(use-package ess-site 
+  :ensure ess
+  :pin melpa-stable
+  :diminish eldoc-mode
+  :bind
+  (:map ess-mode-map
+        ("C-a" . crux-move-beginning-of-line)
+        ("M-=" . ess-insert-S-assign)
+        ("_"   . self-insert-command)
+        ("M-p" . my/add-pipe)
+        ("C-|" . my/ess-eval-pipe-through-line))
+  :config
+  (setq ess-nuke-trailing-whitespace-p t)
+  (add-hook 'ess-mode-hook
+            (lambda ()
+              (ess-set-style 'RStudio)))
+  (setq ess-eval-visibly 'nowait) ; don't hog Emacs
+  (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
+  (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
+  (setq ess-use-ido nil) ; rely on helm instead of ido
+  (setq ess-pdf-viewer-pref "emacsclient")
+  (defun my/add-pipe ()
+    "Adds a pipe operator %>% with one space to the left and then
+starts a newline with proper indentation"
+    (interactive)
+    (just-one-space 1)
+    (insert "%>%")
+    (ess-newline-and-indent))
+  ;; I sometimes want to evaluate just part of a piped sequence. The
+  ;; following lets me do so without needing to insert blank lines or
+  ;; something:
+  (defun my/ess-beginning-of-pipe-or-end-of-line ()
+    "Find point position of end of line or beginning of pipe %>%"
+    (if (search-forward "%>%" (line-end-position) t)
+        (let ((pos (progn
+                     (beginning-of-line)
+                     (search-forward "%>%" (line-end-position))
+                     (backward-char 3)
+                     (point))))
+          (goto-char pos))
+      (end-of-line)))
+
+  (defun my/ess-eval-pipe-through-line (vis)
+    "Like `ess-eval-paragraph' but only evaluates up to the pipe on this line.
+
+If no pipe, evaluate paragraph through the end of current line.
+
+Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
+    (interactive "P")
+    (save-excursion
+      (let ((end (progn
+                   (my/ess-beginning-of-pipe-or-end-of-line)
+                   (point)))
+            (beg (progn (backward-paragraph)
+                        (ess-skip-blanks-forward 'multiline)
+                        (point))))
+        (ess-eval-region beg end vis)))))
+
+(use-package stan-mode
   :ensure t
-  :init (require 'ess-site))
+  :mode ("\\.stan\\'". stan-mode))
+
+(use-package markdown-mode 
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :config
+  (setq markdown-enable-math t))
+
+;(use-package polymode 
+  ;:ensure t
+  ;:mode
+  ;("\\.Snw" . poly-noweb+r-mode)
+  ;("\\.Rnw" . poly-noweb+r-mode)
+  ;("\\.[rR]md" . Rmd-mode)
+  ;:init
+  ;(progn
+    ;(defun Rmd-mode ()
+      ;"ESS Markdown mode for Rmd files"
+      ;(interactive)
+      ;(require 'poly-R)
+      ;(require 'poly-markdown)
+      ;(R-mode)
+      ;(poly-markdown+r-mode))))
 
 ;(use-package company
   ;:ensure t

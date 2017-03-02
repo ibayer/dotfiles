@@ -125,15 +125,39 @@
 ;; Org Mode
 (require 'init-org)
 
+(use-package ob-plantuml
+    :ensure nil
+    :config
+(setq org-plantuml-jar-path "~/bin/plantuml.jar"))
+
 
 ;(use-package exec-path-from-shell
   ;:ensure t
   ;:config
   ;(exec-path-from-shell-initialize))
 
-;(use-package elpy
-  ;:ensure t
-  ;:mode ("\\.py\\'" . elpy-mode))
+(use-package elpy
+  :ensure t
+  :defer 2
+  :pin melpa-stable
+  :config
+  (progn
+    (elpy-enable)
+    (elpy-use-ipython)
+    ;; jedi is great
+    (setq elpy-rpc-backend "jedi")
+    (setq python-shell-completion-native-enable nil)
+    )
+  )
+
+(use-package cython-mode
+  :ensure t
+  :commands cython-mode
+  :config (add-hook 'cython-mode-hook
+                    (lambda ()
+                      ;; same bug for cython, damit!
+                      (remove-hook 'completion-at-point-functions
+'py-shell-complete t))))
 
 ;(use-package groovy-mode
   ;:ensure t
@@ -378,19 +402,20 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
       ;(R-mode)
       ;(poly-markdown+r-mode))))
 
-;(use-package company
-  ;:ensure t
-  ;:defer t
-  ;:init
-  ;(global-company-mode)
-  ;:config
-  ;;(setq company-tooltip-common-selection ((t (:inherit company-tooltip-selection :background "yellow2" :foreground "#c82829"))))
-  ;;(setq company-tooltip-selection ((t (:background "yellow2"))))
-  ;(setq company-idle-delay 0.2)
-  ;(setq company-selection-wrap-around t)
-  ;(define-key company-active-map [tab] 'company-complete)
-  ;(define-key company-active-map (kbd "C-n") 'company-select-next)
-  ;(define-key company-active-map (kbd "C-p") 'company-select-previous))
+(use-package company
+  :ensure t
+  :defer t
+  ;; :init
+  ;; (global-company-mode)
+  ;; :config
+  ;; (setq company-tooltip-common-selection ((t (:inherit company-tooltip-selection :background "yellow2" :foreground "#c82829"))))
+  ;; (setq company-tooltip-selection ((t (:background "yellow2"))))
+  ;; (setq company-idle-delay 0.2)
+  ;; (setq company-selection-wrap-around t)
+  ;; (define-key company-active-map [tab] 'company-complete)
+  ;; (define-key company-active-map (kbd "C-n") 'company-select-next)
+  ;; (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  )
 
 ;(use-package swiper
   ;:ensure t

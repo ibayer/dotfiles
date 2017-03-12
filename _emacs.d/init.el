@@ -1,4 +1,4 @@
-;;; init.el -- My Emacs configuration
+;; init.el -- My Emacs configuration
 ;-*-Emacs-Lisp-*-
 
 ;;; Commentary:
@@ -104,6 +104,19 @@
 ;(require 'init-powerline)
 ;(require 'init-flycheck)
 ;(require 'init-tmux)
+
+(use-package smart-mode-line
+  :ensure t
+  :defer 2
+  :pin melpa-stable
+  :init
+  (setq
+        sml/shorten-directory t
+        sml/shorten-modes t
+        sml/name-width 10
+	sml/mode-width 10)
+  :config
+  (sml/setup))
 
 ;(require 'markdown-preview-mode)
 ;(add-hook 'markdown-preview-mode-hook

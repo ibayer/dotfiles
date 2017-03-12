@@ -483,6 +483,7 @@ TAG is chosen interactively from the global tags completion table."
     "d"  'org-deadline
     ;"ns" 'org-narrow-to-subtree
     ;"p"  'org-set-property
+    "p" 'org-pomodoro
     "s"  'org-schedule
     "t"  'air-org-set-tags
 )
@@ -497,6 +498,7 @@ TAG is chosen interactively from the global tags completion table."
               (define-key org-agenda-mode-map "K"          'air-org-agenda-previous-header)
               ;(define-key org-agenda-mode-map "n"          'org-agenda-next-date-line)
               ;(define-key org-agenda-mode-map "p"          'org-agenda-previous-date-line)
+              (define-key org-agenda-mode-map "p"          'org-pomodoro)
               (define-key org-agenda-mode-map "c"          'air-org-agenda-capture)
               ;(define-key org-agenda-mode-map "R"          'org-revert-all-org-buffers)
               ;(define-key org-agenda-mode-map "y"          'air-org-bulk-copy-headlines)
@@ -579,6 +581,19 @@ TAG is chosen interactively from the global tags completion table."
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-bullets-bullet-list '("•")))
+
+(use-package org-pomodoro
+  :ensure t
+  :defer t
+  :config
+  (setq org-pomodoro-start-sound-p t)
+  (setq org-pomodoro-length 25)
+
+    (setq org-pomodoro-keep-killed-pomodoro-time nil)
+    (setq org-pomodoro-finished-sound-p t)
+    (setq org-pomodoro-short-break-sound-p t)
+    (setq org-pomodoro-long-break-sound-p t)
+    (setq org-pomodoro-ticking-sound-p nil))
 
 (provide 'init-org)
 ;;; init-org.el ends here

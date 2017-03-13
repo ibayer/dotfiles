@@ -402,7 +402,7 @@ TAG is chosen interactively from the global tags completion table."
    (sqlite . nil)))
 
   (setq org-todo-keywords
-        '((sequence "NEXT" "☛ TODO" "⚑ WAITING" "|" "✓ DONE" "✗ CANCELED")))
+        '((sequence "NEXT" "TODO" "WAITING" "|" "DONE" "CANCELED")))
   ;(setq org-blank-before-new-entry '((heading . t)
                                      ;(plain-list-item . t)))
   (setq org-capture-templates
@@ -465,7 +465,7 @@ TAG is chosen interactively from the global tags completion table."
                     ((org-agenda-span 2)
                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'any))
                      (org-agenda-overriding-header "Reminders for today:")))
-            (todo "✓ DONE"
+            (todo "DONE"
                      ((org-agenda-skip-function 'air-org-skip-if-not-closed-today)
                       (org-agenda-overriding-header "Closed today:"))
                      )

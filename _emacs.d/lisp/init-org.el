@@ -397,9 +397,18 @@ TAG is chosen interactively from the global tags completion table."
    (gnuplot . nil)
    (latex . t) ; this is the entry to activate LaTeX
    (python . t)
-   (sh . t)
+   (shell . t)
    (sql . nil)
    (sqlite . nil)))
+
+(defun babel-confirm (flag)
+  "Report the setting of org-confirm-babel-evaluate.
+If invoked with C-u, toggle the setting"
+  (interactive "P")
+  (if (equal flag '(4))
+      (setq org-confirm-babel-evaluate (not org-confirm-babel-evaluate)))
+  (message "Babel evaluation confirmation is %s"
+           (if org-confirm-babel-evaluate "on" "off")))
 
   (setq org-todo-keywords
         '((sequence "NEXT" "TODO" "WAITING" "|" "DONE" "CANCELED")))
@@ -484,6 +493,7 @@ TAG is chosen interactively from the global tags completion table."
     ;"ns" 'org-narrow-to-subtree
     ;"p"  'org-set-property
     "p" 'org-pomodoro
+    "r"   'org-babel-execute-src-block'
     "s"  'org-schedule
     "t"  'air-org-set-tags
 )

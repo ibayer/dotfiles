@@ -141,27 +141,15 @@
 (use-package ob-plantuml
     :ensure nil
     :config
-(setq org-plantuml-jar-path "~/bin/plantuml.jar"))
+    (setq org-plantuml-jar-path "~/bin/plantuml.jar")
+    (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+    )
 
 
 ;(use-package exec-path-from-shell
   ;:ensure t
   ;:config
   ;(exec-path-from-shell-initialize))
-
-(use-package elpy
-  :ensure t
-  :defer 2
-  :pin melpa-stable
-  :config
-  (progn
-    (elpy-enable)
-    (elpy-use-ipython)
-    ;; jedi is great
-    (setq elpy-rpc-backend "jedi")
-    (setq python-shell-completion-native-enable nil)
-    )
-  )
 
 (use-package cython-mode
   :ensure t
@@ -171,6 +159,25 @@
                       ;; same bug for cython, damit!
                       (remove-hook 'completion-at-point-functions
 'py-shell-complete t))))
+
+(use-package elpy
+  :ensure t
+  :defer 2
+  :config
+  (progn
+    ;; Use Flycheck instead of Flymake
+    (when (require 'flycheck nil t)
+      (remove-hook 'elpy-modules 'elpy-module-flymake)
+      (remove-hook 'elpy-modules 'elpy-module-yasnippet)
+      (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
+      (add-hook 'elpy-mode-hook 'flycheck-mode))
+    (setq elpy-rpc-python-command "python3")
+    (setq python-shell-interpreter "ipython3"
+          python-shell-interpreter-args "--simple-prompt --pprint")
+    (add-hook 'elpy-mode-hook 'elpy-use-ipython "ipython3")
+    (setq elpy-rpc-backend "jedi")
+    (elpy-enable)
+    ))
 
 ;(use-package groovy-mode
   ;:ensure t

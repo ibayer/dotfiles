@@ -417,7 +417,7 @@ If invoked with C-u, toggle the setting"
   (setq org-capture-templates
         '(("a" "My TODO task format." entry
            (file "todo.org")
-           "* ☛ TODO %?")
+           "* TODO %?")
 
           ("n" "A (work-related) note." entry
            (file+headline "notes.org" "Work")

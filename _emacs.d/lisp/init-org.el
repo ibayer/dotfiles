@@ -450,7 +450,7 @@ If invoked with C-u, toggle the setting"
 
   ;; ;;; Agenda configuration
  ;; ;(setq org-agenda-text-search-extra-files '(agenda-archives))
-  (setq org-agenda-files '("~/git/org/" "~/git/org/projects"))
+  (setq org-agenda-files '("~/git/org/" "~/git/org/projects" "~/git/org/knowledge-vault"))
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-use-property-inheritance t)
   (setq org-agenda-overriding-columns-format " %8TODO %PRIORITY %10Project %60ITEM ")
@@ -471,8 +471,10 @@ If invoked with C-u, toggle the setting"
                       (org-agenda-overriding-header "ALL normal priority tasks:")))
 
             (agenda ""
-                    ((org-agenda-span 2)
-                     (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'any))
+		    ((org-agenda-tag-filter-preset '("-drill"))
+                     (org-agenda-span 2)
+                     (org-agenda-skip-function '(or (org-agenda-skip-entry-if 'todo 'any )
+						    (org-agenda-skip-entry-if 'regexp ":drill:")))
                      (org-agenda-overriding-header "Reminders for today:")))
             (todo "DONE"
                      ((org-agenda-skip-function 'air-org-skip-if-not-closed-today)

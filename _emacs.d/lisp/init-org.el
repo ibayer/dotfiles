@@ -383,8 +383,15 @@ TAG is chosen interactively from the global tags completion table."
 
   ; cl is required for org-drill
   (require 'cl)
+  (require 'org-collector)
+  (setq my-drill-stats-file "/tmp/drill-stats.csv")
+
   (defun my-save-final-report ()
-      (message "hello drill ##################!"))
+    (write-region (format "%s\n" (current-time-string))
+        nil my-drill-stats-file 'append)
+
+    (message "hello drill ##################! %s"
+	     (count 5 *org-drill-session-qualities*)))
      
   (advice-add 'org-drill-final-report :before 'my-save-final-report)
 

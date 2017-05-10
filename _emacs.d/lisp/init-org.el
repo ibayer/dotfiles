@@ -379,12 +379,15 @@ TAG is chosen interactively from the global tags completion table."
   ;;       '(org-bbdb org-bibtex org-docview org-habit org-info org-w3m))
   (require 'org-habit)
   (setq org-modules
-	'(org-bibtex org-docview org-habit org-info org-w3m))
+	'(org-bibtex org-docview org-habit org-info org-w3m org-drill))
 
   ; cl is required for org-drill
   (require 'cl)
-  (setq org-modules
-        '(org-drill))
+  (defun my-save-final-report ()
+      (message "hello drill ##################!"))
+     
+  (advice-add 'org-drill-final-report :before 'my-save-final-report)
+
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-image-actual-width nil)
 

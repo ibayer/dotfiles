@@ -377,6 +377,7 @@ TAG is chosen interactively from the global tags completion table."
   ;(setq org-hide-emphasis-markers t)
   ;; (setq org-modules
   ;;       '(org-bbdb org-bibtex org-docview org-habit org-info org-w3m))
+
   (require 'org-habit)
   (setq org-modules
 	'(org-bibtex org-docview org-habit org-info org-w3m org-drill))
@@ -384,16 +385,27 @@ TAG is chosen interactively from the global tags completion table."
   ; cl is required for org-drill
   (require 'cl)
   (require 'org-collector)
-  (setq my-drill-stats-file "/tmp/drill-stats.csv")
 
   (defun my-save-final-report ()
-    (write-region (format "%s\n" (current-time-string))
-        nil my-drill-stats-file 'append)
-
-    (message "hello drill ##################! %s"
-	     (count 5 *org-drill-session-qualities*)))
+    ;; calls my-add-stats-to-table from org-drill buffer
+    (org-babel-execute-buffer))
      
   (advice-add 'org-drill-final-report :before 'my-save-final-report)
+
+  (defun my-add-stats-to-table ()
+   (defun get-last-quality ()
+        (org-entry-get (point) "DRILL_LAST_QUALITY"))
+
+   ;; count occurance of value in collected-quantities list
+   (defun my-count(my-value)
+	(reduce (lambda (acc x) (if (= my-value (string-to-number x))
+	        (1+ acc) acc)) collected-qualities :initial-value 0))
+
+   (setq collected-qualities (remove nil (org-map-entries 'get-last-quality "+drill")))
+   (setq quality-counts (cl-mapcar 'my-count '(1 2 3 4 5)))
+
+   (add-to-list 'quality-counts (format-time-string "%d/%m/%Y\t%H:%M"))
+   (add-to-list 'table quality-counts))
 
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-image-actual-width nil)
@@ -404,7 +416,7 @@ TAG is chosen interactively from the global tags completion table."
    (ditaa . t)
    (dot . t)
    (emacs-lisp . t)
-   (gnuplot . nil)
+   (gnuplot . t)
    (latex . t) ; this is the entry to activate LaTeX
    (python . t)
    (shell . t)
@@ -603,6 +615,11 @@ If invoked with C-u, toggle the setting"
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-bullets-bullet-list '("•")))
+
+(use-package gnuplot
+  :commands gnuplot-mode
+  :defer t
+  :ensure t)
 
 (use-package org-pomodoro
   :ensure t

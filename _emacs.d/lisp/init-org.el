@@ -390,7 +390,8 @@ TAG is chosen interactively from the global tags completion table."
     ;; calls my-add-stats-to-table from org-drill buffer
     (org-babel-execute-buffer))
      
-  (advice-add 'org-drill-final-report :before 'my-save-final-report)
+  ;; find way to only execute individual source blocks
+  ;; (avice-add 'org-drill-final-report :before 'my-save-final-report)
 
   (defun my-add-stats-to-table ()
    (defun get-last-quality ()
@@ -472,7 +473,7 @@ If invoked with C-u, toggle the setting"
 
   ;; ;;; Agenda configuration
  ;; ;(setq org-agenda-text-search-extra-files '(agenda-archives))
-  (setq org-agenda-files '("~/git/org/" "~/git/org/projects" "~/git/org/knowledge-vault"))
+  (setq org-agenda-files '("~/git/org/" "~/git/org/projects" "~/git/org/knowledge-vault" "~/git/collabo"))
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-use-property-inheritance t)
   (setq org-agenda-overriding-columns-format " %8TODO %PRIORITY %10Project %60ITEM ")

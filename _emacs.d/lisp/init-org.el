@@ -408,6 +408,17 @@ TAG is chosen interactively from the global tags completion table."
    (add-to-list 'quality-counts (format-time-string "%d/%m/%Y\t%H:%M"))
    (add-to-list 'table quality-counts))
 
+
+  (defun my-save-drill-stats ()
+    ;; calls my-add-stats-to-table from org-drill buffer
+
+    (save-excursion
+    (goto-char
+      (org-babel-find-named-block "agg-drill-stats"))
+      (org-babel-execute-src-block-maybe)))
+     
+  (advice-add 'org-drill-final-report :before 'my-save-drill-stats)
+
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-image-actual-width nil)
 

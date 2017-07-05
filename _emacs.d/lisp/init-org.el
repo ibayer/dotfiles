@@ -396,6 +396,7 @@ TAG is chosen interactively from the global tags completion table."
   (advice-add 'org-drill-final-report :before 'my-save-final-report)
 
 (setq org-latex-create-formula-image-program 'imagemagick)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (setq org-image-actual-width nil)
 
 (org-babel-do-load-languages

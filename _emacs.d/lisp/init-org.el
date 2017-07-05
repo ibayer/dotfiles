@@ -30,7 +30,7 @@
                                  ;line-end)
                              ;"" entry)))
             ;(setq entries (concat entries entry "\n"))))))
-    ;(if (length entries)
+    ;(if (length entries
         ;(kill-new entries)))
   ;(message "Acted on %s entries%s"
            ;(length org-agenda-bulk-marked-entries)
@@ -422,6 +422,22 @@ TAG is chosen interactively from the global tags completion table."
 (setq org-latex-create-formula-image-program 'imagemagick)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 (setq org-image-actual-width nil)
+
+(require 'ox-latex)
+(eval-after-load "ox-latex"
+
+  ;; update the list of LaTeX classes and associated header (encoding, etc.)
+  ;; and structure
+  '(add-to-list 'org-latex-classes
+                `("beamer"
+                  ,(concat "\\documentclass[presentation]{beamer}\n"
+                           "[DEFAULT-PACKAGES]"
+                           "[PACKAGES]"
+                           "[EXTRA]\n")
+                  ("\\section{%s}" . "\\section*{%s}")
+                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+ (setq org-latex-listings t)
 
 (org-babel-do-load-languages
  'org-babel-load-languages

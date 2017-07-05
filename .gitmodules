@@ -1,36 +1,48 @@
 [submodule "_vim/bundle/fugitive"]
 	path = _vim/bundle/fugitive
 	url = http://github.com/tpope/vim-fugitive.git
+    ignore = dirty
 [submodule "_vim/bundle/nerdtree"]
 	path = _vim/bundle/nerdtree
 	url = https://github.com/vim-scripts/The-NERD-tree.git
+    ignore = dirty
 [submodule "_vim/bundle/solarized"]
 	path = _vim/bundle/solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
+    ignore = dirty
 [submodule "_vim/bundle/markdown"]
 	path = _vim/bundle/markdown
 	url = https://github.com/plasticboy/vim-markdown.git
+    ignore = dirty
 [submodule "_vim/bundle/tlib"]
 	path = _vim/bundle/tlib
 	url = https://github.com/tomtom/tlib_vim.git
+    ignore = dirty
 [submodule "_vim/bundle/snippets"]
 	path = _vim/bundle/snippets
 	url = https://github.com/honza/vim-snippets.git
+    ignore = dirty
 [submodule "_vim/bundle/vim-ipython"]
 	path = _vim/bundle/vim-ipython
 	url = http://github.com/ivanov/vim-ipython.git
+    ignore = dirty
 [submodule "_vim/bundle/vim-tmux-navigator"]
 	path = _vim/bundle/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+    ignore = dirty
 [submodule "_vim/bundle/voom_vim"]
 	path = _vim/bundle/voom_vim
 	url = https://github.com/vim-scripts/VOoM
+    ignore = dirty
 [submodule "_vim/bundle/syntastic"]
 	path = _vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+    ignore = dirty
 [submodule "_vim/bundle/vim-gitgutter"]
 	path = _vim/bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+    ignore = dirty
 [submodule "_vim/bundle/nerdcommenter"]
 	path = _vim/bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
+    ignore = dirty

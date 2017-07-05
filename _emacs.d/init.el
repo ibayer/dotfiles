@@ -164,20 +164,18 @@
   :ensure t
   :defer 2
   :config
-  (progn
-    ;; Use Flycheck instead of Flymake
-    (when (require 'flycheck nil t)
-      (remove-hook 'elpy-modules 'elpy-module-flymake)
-      (remove-hook 'elpy-modules 'elpy-module-yasnippet)
-      (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
-      (add-hook 'elpy-mode-hook 'flycheck-mode))
-    (setq elpy-rpc-python-command "python3")
-    (setq python-shell-interpreter "ipython3"
-          python-shell-interpreter-args "--simple-prompt --pprint")
-    (add-hook 'elpy-mode-hook 'elpy-use-ipython "ipython3")
-    (setq elpy-rpc-backend "jedi")
     (elpy-enable)
-    ))
+    ;; Use Flycheck instead of Flymake
+    ;; (when (require 'flycheck nil t)
+    ;;   (remove-hook 'elpy-modules 'elpy-module-flymake)
+    ;;   (remove-hook 'elpy-modules 'elpy-module-yasnippet)
+    ;;   (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
+    ;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
+    (elpy-use-ipython)
+    (setq elpy-rpc-python-command "python3")
+    (setq elpy-rpc-backend "jedi")
+    (setq python-shell-interpreter "ipython3"
+          python-shell-interpreter-args "--simple-prompt --pprint"))
 
 ;(use-package groovy-mode
   ;:ensure t
@@ -356,6 +354,7 @@
   (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
   (setq ess-use-ido nil) ; rely on helm instead of ido
   (setq ess-pdf-viewer-pref "emacsclient")
+
   (defun my/add-pipe ()
     "Adds a pipe operator %>% with one space to the left and then
 starts a newline with proper indentation"
@@ -363,6 +362,7 @@ starts a newline with proper indentation"
     (just-one-space 1)
     (insert "%>%")
     (ess-newline-and-indent))
+
   ;; I sometimes want to evaluate just part of a piped sequence. The
   ;; following lets me do so without needing to insert blank lines or
   ;; something:
@@ -392,6 +392,11 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                         (ess-skip-blanks-forward 'multiline)
                         (point))))
         (ess-eval-region beg end vis)))))
+
+(require 'flycheck)
+;; '(flycheck-lintr-caching nil) ;; need to customised it inside of Emacs
+(add-hook 'ess-mode-hook
+          (lambda () (flycheck-mode t)))
 
 (use-package stan-mode
   :ensure t
@@ -741,10 +746,10 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                                   ;(setq js-indent-level 2)))
 
 ;;;; Markdown mode:
-;(add-hook 'markdown-mode-hook (lambda ()
-                                ;(set-fill-column 80)
-                                ;(turn-on-auto-fill)
-                                ;(flyspell-mode)))
+(add-hook 'markdown-mode-hook (lambda ()
+                                (set-fill-column 80)
+                                (turn-on-auto-fill)
+                                (flyspell-mode)))
 
 ;;;; HTML mode:
 ;(add-hook 'html-mode-hook (lambda ()

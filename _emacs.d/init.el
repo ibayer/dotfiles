@@ -105,6 +105,11 @@
 ;(require 'init-flycheck)
 ;(require 'init-tmux)
 
+(use-package flycheck
+  :ensure t
+  :commands flycheck-mode)
+
+
 (use-package smart-mode-line
   :ensure t
   :defer 2
@@ -166,16 +171,18 @@
   :config
     (elpy-enable)
     ;; Use Flycheck instead of Flymake
-    ;; (when (require 'flycheck nil t)
-    ;;   (remove-hook 'elpy-modules 'elpy-module-flymake)
-    ;;   (remove-hook 'elpy-modules 'elpy-module-yasnippet)
-    ;;   (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
-    ;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
+    (when (require 'flycheck nil t)
+      (remove-hook 'elpy-modules 'elpy-module-flymake)
+      (remove-hook 'elpy-modules 'elpy-module-yasnippet)
+      (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
+      (add-hook 'elpy-mode-hook 'flycheck-mode))
     (elpy-use-ipython)
     (setq elpy-rpc-python-command "python3")
     (setq elpy-rpc-backend "jedi")
     (setq python-shell-interpreter "ipython3"
-          python-shell-interpreter-args "--simple-prompt --pprint"))
+          python-shell-interpreter-args "--pprint"))
+    ;; (setq python-shell-interpreter "ipython3"
+    ;;       python-shell-interpreter-args "--simple-prompt --pprint"))
 
 ;(use-package groovy-mode
   ;:ensure t
@@ -394,7 +401,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         (ess-eval-region beg end vis)))))
 
 (require 'flycheck)
-;; '(flycheck-lintr-caching nil) ;; need to customised it inside of Emacs
+'(flycheck-lintr-caching nil) ;; need to customised it inside of Emacs
 (add-hook 'ess-mode-hook
           (lambda () (flycheck-mode t)))
 
@@ -411,21 +418,28 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :config
   (setq markdown-enable-math t))
 
-;(use-package polymode 
-  ;:ensure t
-  ;:mode
-  ;("\\.Snw" . poly-noweb+r-mode)
-  ;("\\.Rnw" . poly-noweb+r-mode)
-  ;("\\.[rR]md" . Rmd-mode)
-  ;:init
-  ;(progn
-    ;(defun Rmd-mode ()
-      ;"ESS Markdown mode for Rmd files"
-      ;(interactive)
-      ;(require 'poly-R)
-      ;(require 'poly-markdown)
-      ;(R-mode)
-      ;(poly-markdown+r-mode))))
+(use-package edit-indirect
+  :ensure t)
+
+(use-package yaml-mode
+  :ensure t
+  :mode (("\\.yml\\'" . yaml-mode)))
+
+(use-package polymode 
+  :ensure t
+  :mode
+  ("\\.Snw" . poly-noweb+r-mode)
+  ("\\.Rnw" . poly-noweb+r-mode)
+  ("\\.[rR]md" . Rmd-mode)
+  :init
+  (progn
+    (defun Rmd-mode ()
+      "ESS Markdown mode for Rmd files"
+      (interactive)
+      (require 'poly-R)
+      (require 'poly-markdown)
+      (R-mode)
+      (poly-markdown+r-mode))))
 
 (use-package company
   :ensure t
@@ -456,10 +470,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 ;(use-package emmet-mode
   ;:ensure t
   ;:commands emmet-mode)
-
-;(use-package flycheck
-  ;:ensure t
-  ;:commands flycheck-mode)
 
 (use-package helm-projectile
   :commands (helm-projectile helm-projectile-switch-project)
@@ -592,10 +602,10 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;"Delay (in seconds) before matching paren is highlighted.")
 
 ;;; Flycheck mode:
-;(add-hook 'flycheck-mode-hook
-          ;(lambda ()
-            ;(evil-define-key 'normal flycheck-mode-map (kbd "]e") 'flycheck-next-error)
-            ;(evil-define-key 'normal flycheck-mode-map (kbd "[e") 'flycheck-previous-error)))
+(add-hook 'flycheck-mode-hook
+          (lambda ()
+            (evil-define-key 'normal flycheck-mode-map (kbd "]e") 'flycheck-next-error)
+            (evil-define-key 'normal flycheck-mode-map (kbd "[e") 'flycheck-previous-error)))
 
 ;;; Lisp interaction mode & Emacs Lisp mode:
 ;(add-hook 'lisp-interaction-mode-hook

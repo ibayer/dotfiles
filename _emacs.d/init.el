@@ -1,4 +1,4 @@
-;; init.el -- My Emacs configuration
+;   sudo apt-get install baobab ); init.el -- My Emacs configuration
 ;-*-Emacs-Lisp-*-
 
 ;;; Commentary:
@@ -164,6 +164,21 @@
                       ;; same bug for cython, damit!
                       (remove-hook 'completion-at-point-functions
 'py-shell-complete t))))
+
+(use-package company
+  :ensure t
+  :defer t
+  ;; :init
+  ;; (global-company-mode)
+  ;; :config
+  ;; (setq company-tooltip-common-selection ((t (:inherit company-tooltip-selection :background "yellow2" :foreground "#c82829"))))
+  ;; (setq company-tooltip-selection ((t (:background "yellow2"))))
+  ;; (setq company-idle-delay 0.2)
+  ;; (setq company-selection-wrap-around t)
+  ;; (define-key company-active-map [tab] 'company-complete)
+  ;; (define-key company-active-map (kbd "C-n") 'company-select-next)
+  ;; (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  )
 
 (use-package elpy
   :ensure t
@@ -416,7 +431,10 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :config
-  (setq markdown-enable-math t))
+  (define-key markdown-mode-map (kbd "<tab>")  'markdown-cycle)
+  (setq markdown-enable-math t)
+  (setq markdown-hide-markup t)
+  (setq markdown-header-scaling t))
 
 (use-package edit-indirect
   :ensure t)
@@ -425,36 +443,17 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :ensure t
   :mode (("\\.yml\\'" . yaml-mode)))
 
-(use-package polymode 
+(use-package polymode
   :ensure t
   :mode
-  ("\\.Snw" . poly-noweb+r-mode)
+  (("\\.Snw" . poly-noweb+r-mode)
   ("\\.Rnw" . poly-noweb+r-mode)
-  ("\\.[rR]md" . Rmd-mode)
-  :init
-  (progn
-    (defun Rmd-mode ()
-      "ESS Markdown mode for Rmd files"
-      (interactive)
-      (require 'poly-R)
-      (require 'poly-markdown)
-      (R-mode)
-      (poly-markdown+r-mode))))
+  ("\\.[rR]md" . poly-markdown+r-mode))
+  :config
+  (require 'poly-R)
+  (require 'poly-markdown))
 
-(use-package company
-  :ensure t
-  :defer t
-  ;; :init
-  ;; (global-company-mode)
-  ;; :config
-  ;; (setq company-tooltip-common-selection ((t (:inherit company-tooltip-selection :background "yellow2" :foreground "#c82829"))))
-  ;; (setq company-tooltip-selection ((t (:background "yellow2"))))
-  ;; (setq company-idle-delay 0.2)
-  ;; (setq company-selection-wrap-around t)
-  ;; (define-key company-active-map [tab] 'company-complete)
-  ;; (define-key company-active-map (kbd "C-n") 'company-select-next)
-  ;; (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  )
+
 
 ;(use-package swiper
   ;:ensure t

@@ -561,6 +561,15 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq magit-last-seen-setup-instructions "1.4.0")
   (magit-define-popup-switch 'magit-log-popup ?f "first parent" "--first-parent"))
 
+(use-package ledger-mode
+  :ensure t
+  :mode "\\.ledger\\'"
+  :config
+  (progn
+    (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
+(setq ledger-post-auto-adjust-amounts t))
+(use-package flycheck-ledger))
+
 ;(use-package mmm-mode
   ;:ensure t
   ;:defer t

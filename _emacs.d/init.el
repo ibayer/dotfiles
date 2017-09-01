@@ -306,9 +306,9 @@
   :ensure t
   :config
   (setq bibtex-completion-pdf-field "File")
-  (setq bibtex-completion-bibliography '("~/git/org/knowledge-vault/references-biblatex.bib"))
+  (setq bibtex-completion-bibliography '("~/git/RefSync/references-biblatex.bib"))
   (setq bibtex-completion-library-path '("~/paper-collection/pdfs"))
-  (setq bibtex-completion-notes-path "~/git/org/knowledge-vault/paper_notes.org"))
+  (setq bibtex-completion-notes-path "~/git/RefSync/paper_notes.org"))
 
 
 (use-package org-ref

@@ -307,7 +307,7 @@
   :config
   (setq bibtex-completion-pdf-field "File")
   (setq bibtex-completion-bibliography '("~/git/RefSync/references-biblatex.bib"))
-  (setq bibtex-completion-library-path '("~/paper-collection/pdfs"))
+  (setq bibtex-completion-library-path '("~/git/PaperSync/pdfs"))
   (setq bibtex-completion-notes-path "~/git/RefSync/paper_notes.org"))
 
 
@@ -330,9 +330,9 @@
  (require 'x2bib)
  (require 'doi-utils)
  (require 'org-ref-arxiv)
-  (setq org-ref-bibliography-notes "~/git/org/knowledge-vault/paper_notes.org"
-        org-ref-default-bibliography '("~/git/org/knowledge-vault/references-biblatex.bib")
-        org-ref-pdf-directory "~/Dropbox/paper-collection/pdfs/")
+  (setq org-ref-bibliography-notes "~/git/RefSync/paper_notes.org"
+        org-ref-default-bibliography '("~/git/RefSync/references-biblatex.bib")
+        org-ref-pdf-directory "~/git/PaperSync/pdfs/")
 
 
     (defun my/org-ref-open-pdf-at-point ()

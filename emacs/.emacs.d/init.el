@@ -370,6 +370,7 @@
   (setq ess-nuke-trailing-whitespace-p t)
   (add-hook 'ess-mode-hook
             (lambda ()
+	      (ess-toggle-underscore nil) ; leaf underscore alone!
               (ess-set-style 'RStudio)))
   (setq ess-eval-visibly 'nowait) ; don't hog Emacs
   (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
@@ -414,6 +415,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                         (ess-skip-blanks-forward 'multiline)
                         (point))))
         (ess-eval-region beg end vis)))))
+
 
 (require 'flycheck)
 '(flycheck-lintr-caching nil) ;; need to customised it inside of Emacs

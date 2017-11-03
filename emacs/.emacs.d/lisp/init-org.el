@@ -490,8 +490,7 @@ If invoked with C-u, toggle the setting"
 
   ;; ;;; Logging of state changes
   (setq org-log-done (quote time))
-  (setq org-log-redeadline (quote time))
-  (setq org-log-reschedule (quote time))
+  ;; (setq org-log-redeadline (quote time))
   ;; ;(setq org-log-into-drawer t)
 
   ;; ;(setq org-insert-heading-respect-content t)

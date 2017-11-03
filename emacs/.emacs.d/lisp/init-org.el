@@ -449,7 +449,7 @@ TAG is chosen interactively from the global tags completion table."
    (latex . t) ; this is the entry to activate LaTeX
    (python . t)
    (shell . t)
-   (sql . nil)
+   (sql . t)
    (C . t)
    (sqlite . nil)))
 
@@ -663,6 +663,13 @@ If invoked with C-u, toggle the setting"
     (setq org-pomodoro-short-break-sound-p t)
     (setq org-pomodoro-long-break-sound-p t)
     (setq org-pomodoro-ticking-sound-p nil))
+
+(use-package sound-wav
+  :ensure t)
+
+(use-package powershell
+  :if window-system
+  :ensure t)
 
 (provide 'init-org)
 ;;; init-org.el ends here

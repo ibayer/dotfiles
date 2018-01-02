@@ -302,6 +302,11 @@
      (require 'outline-magic)
      (define-key outline-minor-mode-map (kbd "<tab>") 'outline-cycle))))
 
+  (evil-leader/set-key-for-mode 'latex-mode
+    "pd" 'preview-document
+    "pp" 'preview-at-point
+)
+
 (use-package helm-bibtex
   :ensure t
   :config
@@ -782,6 +787,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;(setq ns-use-srgb-colorspace nil))
 
 (load-theme 'gruvbox)
+
+(require 'notmuch)
 
 (provide 'init)
 ;;; init.el ends here

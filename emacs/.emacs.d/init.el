@@ -50,6 +50,8 @@
 (tool-bar-mode -1)
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
+
+
 ;(show-paren-mode 1)
 ;(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 ;(setq-default left-fringe-width nil)
@@ -183,21 +185,18 @@
 (use-package elpy
   :ensure t
   :defer 2
+  :pin melpa-stable
   :config
     (elpy-enable)
     ;; Use Flycheck instead of Flymake
-    (when (require 'flycheck nil t)
-      (remove-hook 'elpy-modules 'elpy-module-flymake)
-      (remove-hook 'elpy-modules 'elpy-module-yasnippet)
-      (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
-      (add-hook 'elpy-mode-hook 'flycheck-mode))
+    ;; (when (require 'flycheck nil t)
+    ;;   (remove-hook 'elpy-modules 'elpy-module-flymake)
+    ;;   (remove-hook 'elpy-modules 'elpy-module-yasnippet)
+    ;;   (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
+    ;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
     (elpy-use-ipython)
-    (setq elpy-rpc-python-command "python3")
-    (setq elpy-rpc-backend "jedi")
-    (setq python-shell-interpreter "ipython3"
-          python-shell-interpreter-args "--pprint"))
-    ;; (setq python-shell-interpreter "ipython3"
-    ;;       python-shell-interpreter-args "--simple-prompt --pprint"))
+    (setq elpy-rpc-python-command "python")
+    (setq elpy-rpc-backend "jedi"))
 
 ;(use-package groovy-mode
   ;:ensure t
@@ -375,6 +374,7 @@
   (setq ess-nuke-trailing-whitespace-p t)
   (add-hook 'ess-mode-hook
             (lambda ()
+	      (ess-toggle-underscore nil) ; leaf underscore alone!
               (ess-set-style 'RStudio)))
   (setq ess-eval-visibly 'nowait) ; don't hog Emacs
   (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
@@ -419,6 +419,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                         (ess-skip-blanks-forward 'multiline)
                         (point))))
         (ess-eval-region beg end vis)))))
+
 
 (require 'flycheck)
 '(flycheck-lintr-caching nil) ;; need to customised it inside of Emacs

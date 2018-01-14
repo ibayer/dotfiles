@@ -353,6 +353,7 @@ TAG is chosen interactively from the global tags completion table."
     (air--org-swap-tags new)))
 
 
+
 ;;; Code:
 (use-package org
   :ensure org-plus-contrib
@@ -377,6 +378,11 @@ TAG is chosen interactively from the global tags completion table."
   ;(setq org-hide-emphasis-markers t)
   ;; (setq org-modules
   ;;       '(org-bbdb org-bibtex org-docview org-habit org-info org-w3m))
+
+
+  (require 'org-contacts)
+  (setq org-contacts-files
+  (list (concat org-directory "/contacts.org")))
 
   (require 'org-habit)
   (setq org-modules
@@ -669,6 +675,7 @@ If invoked with C-u, toggle the setting"
 (use-package powershell
   :if window-system
   :ensure t)
+
 
 (provide 'init-org)
 ;;; init-org.el ends here

@@ -381,8 +381,7 @@ TAG is chosen interactively from the global tags completion table."
 
 
   (require 'org-contacts)
-  (setq org-contacts-files
-  (list (concat org-directory "/contacts.org")))
+  (setq org-contacts-files '("~/git/org/contacts.org"))
 
   (require 'org-habit)
   (setq org-modules

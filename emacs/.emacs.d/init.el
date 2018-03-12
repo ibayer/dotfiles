@@ -567,6 +567,22 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq magit-last-seen-setup-instructions "1.4.0")
   (magit-define-popup-switch 'magit-log-popup ?f "first parent" "--first-parent"))
 
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (use-package treemacs-evil
+      :ensure t
+      :demand t))
+  (define-key evil-normal-state-map (kbd ", t") 'treemacs-toggle)
+)
+
+
 (use-package ledger-mode
   :ensure t
   :mode "\\.ledger\\'"
@@ -789,7 +805,10 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 
 (load-theme 'gruvbox)
 
-(require 'notmuch)
 
 (provide 'init)
 ;;; init.el ends here
+
+(use-package notmuch
+  :defer t)
+  

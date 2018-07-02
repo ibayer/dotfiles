@@ -264,12 +264,12 @@ If VANILLA is non-nil, run the standard `org-capture'."
 (defun air-pop-to-org-projects (split)
   "Visit my main notes file, in the current window or a SPLIT."
   (interactive "P")
-  (air--pop-to-file "~/git/org/projects/projects.org" split))
+  (air--pop-to-file "~/git/org/projects/active.org" split))
 
 (defun air-pop-to-org-knowledge (split)
   "Visit my main notes file, in the current window or a SPLIT."
   (interactive "P")
-  (air--pop-to-file "~/git/org/knowledge-vault/collection.org" split))
+  (air--pop-to-file "~/git/org/knowledge-vault/knowledge.org" split))
 
 ;(defun air-pop-to-org-vault (split)
   ;"Visit my encrypted vault file, in the current window or a SPLIT."

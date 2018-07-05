@@ -528,7 +528,7 @@ If invoked with C-u, toggle the setting"
             (alltodo ""
                      ((org-agenda-skip-function '(or (air-org-skip-if-habit)
                                                      (air-org-skip-if-priority ?A)
-						     (org-agenda-skip-entry-if 'todo '("○ NEXT" "NEXT"))
+						     (org-agenda-skip-entry-if 'todo '("○ NEXT" "NEXT" "WAITING"))
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:")))
 

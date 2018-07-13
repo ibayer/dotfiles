@@ -5,40 +5,6 @@
 
 ;; Helper functions
 
-;(defun air-org-bulk-copy-headlines (&optional strip-tags)
-  ;"Copy the headline text of the marked headlines in an agenda view.
-
-;This function is designed to be called interactively from an agenda
-;view with marked items.
-
-;If STRIP-TAGS is not nil, remove tags and trailing spaces from
-;the headlines."
-  ;(interactive "P")
-  ;(unless org-agenda-bulk-marked-entries (user-error "No entries are marked"))
-  ;(let ((entries "")
-        ;entry)
-    ;(dolist (entry-marker (reverse org-agenda-bulk-marked-entries))
-      ;(with-current-buffer (marker-buffer entry-marker)
-        ;(save-excursion
-          ;(goto-char (marker-position entry-marker))
-          ;(when (re-search-forward org-heading-regexp (line-end-position) t)
-            ;(setq entry (match-string-no-properties 2))
-            ;(if strip-tags
-                ;(setq entry (replace-regexp-in-string
-                             ;(rx (0+ " ")
-                                 ;(0+ (any alpha ":"))
-                                 ;line-end)
-                             ;"" entry)))
-            ;(setq entries (concat entries entry "\n"))))))
-    ;(if (length entries
-        ;(kill-new entries)))
-  ;(message "Acted on %s entries%s"
-           ;(length org-agenda-bulk-marked-entries)
-           ;(if org-agenda-persistent-marks
-               ;" (kept marked)" ""))
-  ;(unless org-agenda-persistent-marks
-    ;(org-agenda-bulk-unmark-all)))
-
 (defun air-org-agenda-next-header ()
   "Jump to the next header in an agenda series."
   (interactive)
@@ -69,28 +35,6 @@
     (if pos (goto-char pos))
     (if backwards (goto-char (line-beginning-position)))))
 
-;(defun air--org-display-tag (tag &optional focus)
-  ;"Display entries tagged with TAG in a fit window.
-
-;Do not make the new window current unless FOCUS is set."
-  ;(org-tags-view nil tag)
-  ;(fit-window-to-buffer)
-  ;(unless focus
-    ;(other-window 1)))
-
-;(defun air-org-display-directs (&optional focus)
-  ;"Display entries tagged with `direct'.
-
-;Do not make the new window current unless FOCUS is set."
-  ;(interactive "P")
-  ;(air--org-display-tag "direct" focus))
-
-;(defun air-org-display-managers (&optional focus)
-  ;"Display entries tagged with `manager'.
-
-;Do not make the new window current unless FOCUS is set."
-  ;(interactive "P")
-  ;(air--org-display-tag "manager" focus))
 
 (defun air-org-skip-if-not-closed-today (&optional subtree)
   "Skip entries that were not closed today.
@@ -130,93 +74,6 @@ Skips the current entry unless SUBTREE is not nil."
     (if (= pri-value pri-current)
         end
       nil)))
-
-;(defun air--org-global-custom-ids ()
-  ;"Find custom ID fields in all org agenda files."
-  ;(let ((files (org-agenda-files))
-        ;file
-        ;air-all-org-custom-ids)
-    ;(while (setq file (pop files))
-      ;(with-current-buffer (org-get-agenda-file-buffer file)
-        ;(save-excursion
-          ;(save-restriction
-            ;(widen)
-            ;(goto-char (point-min))
-            ;(while (re-search-forward "^[ \t]*:CUSTOM_ID:[ \t]+\\(\\S-+\\)[ \t]*$"
-                                      ;nil t)
-              ;(add-to-list 'air-all-org-custom-ids
-                           ;`(,(match-string-no-properties 1)
-                             ;,(concat file ":" (number-to-string (line-number-at-pos))))))))))
-    ;air-all-org-custom-ids))
-
-;(defun air-org-goto-custom-id ()
-  ;"Go to the location of CUSTOM-ID, or prompt interactively."
-  ;(interactive)
-  ;(let* ((all-custom-ids (air--org-global-custom-ids))
-         ;(custom-id (completing-read
-                     ;"Custom ID: "
-                     ;all-custom-ids)))
-    ;(when custom-id
-      ;(let* ((val (cadr (assoc custom-id all-custom-ids)))
-             ;(id-parts (split-string val ":"))
-             ;(file (car id-parts))
-             ;(line (string-to-int (cadr id-parts))))
-        ;(pop-to-buffer (org-get-agenda-file-buffer file))
-        ;(goto-char (point-min))
-        ;(forward-line line)
-        ;(org-reveal)
-        ;(org-up-element)))))
-
-;(defun air-org-insert-custom-id-link ()
-  ;"Insert an Org link to a custom ID selected interactively."
-  ;(interactive)
-  ;(let* ((all-custom-ids (air--org-global-custom-ids))
-         ;(custom-id (completing-read
-                     ;"Custom ID: "
-                     ;all-custom-ids)))
-    ;(when custom-id
-      ;(let* ((val (cadr (assoc custom-id all-custom-ids)))
-             ;(id-parts (split-string val ":"))
-             ;(file (car id-parts))
-             ;(line (string-to-int (cadr id-parts))))
-        ;(org-insert-link nil (concat file "::#" custom-id) custom-id)))))
-
-;(defun air-org-nmom-capture-template ()
-  ;"Return a Nine Minutes on Monday weekly agenda template suitable for capture."
-  ;(let* ((deadline-timestamp (format-time-string "<%Y-%m-%d %a>"
-                                                 ;(air-calendar-next-day-of-week 5)))
-         ;(deadline (format "DEADLINE: %s\n\n" deadline-timestamp)))
-    ;(concat (format "* Week %02d\n\n" (org-days-to-iso-week (org-today)))
-            ;(concat "** ☛ TODO Care: \n" deadline
-                    ;"** ☛ TODO Mastery: \n" deadline
-                    ;"** ☛ TODO Recognition: \n" deadline
-                    ;"** ☛ TODO Purpose: \n" deadline))))
-
-;(defun air-org-set-category-property (value)
-  ;"Set the category property of the current item to VALUE."
-  ;(interactive (list (org-read-property-value "CATEGORY")))
-  ;(org-set-property "CATEGORY" value))
-
-;(defun air-org-insert-heading (&optional subheading)
-  ;"Insert a heading or a subheading.
-
-;If the optional SUBHEADING is t, insert a subheading.  Inserting
-;headings always respects content."
-  ;(interactive "P")
-  ;(if subheading
-      ;(org-insert-subheading t)
-    ;(org-insert-heading t)))
-
-;(defun air-org-insert-scheduled-heading (&optional subheading)
-  ;"Insert a new org heading scheduled for today.
-
-;Insert the new heading at the end of the current subtree if
-;FORCE-HEADING is non-nil."
-  ;(interactive "P")
-  ;(if subheading
-      ;(org-insert-subheading t)
-    ;(org-insert-todo-heading t t))
-  ;(org-schedule nil (format-time-string "%Y-%m-%d")))
 
 (defun air-org-task-capture (&optional vanilla)
   "Capture a task with my default template.
@@ -493,6 +350,9 @@ If invoked with C-u, toggle the setting"
   (setq org-default-notes-file "~/git/org/todo.org")
   (setq org-directory "~/git/org")
 
+
+
+
   ;; ;;; Logging of state changes
   (setq org-log-done (quote time))
   ;; (setq org-log-redeadline (quote time))
@@ -518,10 +378,13 @@ If invoked with C-u, toggle the setting"
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
             (agenda ""
                     ((org-agenda-span 'day)
+		     (org-agenda-sorting-strategy
+		     '(time-up habit-down priority-down category-keep))
                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'any))))
             (agenda ""
 		    ((org-agenda-tag-filter-preset '("-drill"))
                      (org-agenda-span 2)
+
                      (org-agenda-skip-function '(or (org-agenda-skip-entry-if 'todo 'any )
 						    (org-agenda-skip-entry-if 'regexp ":drill:")))
                      (org-agenda-overriding-header "Reminders for today:")))

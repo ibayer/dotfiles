@@ -1,4 +1,13 @@
 " ==========================================================
+" Dependencies
+" ==========================================================
+"
+" - pylint (python linter)
+" - flake8 (on-the-fly linter)
+" - jedi (autocomplete)
+" - yapf (autoformat)
+
+" ==========================================================
 " Shortcuts
 " ==========================================================
 set nocompatible              " Don't be compatible with vi
@@ -216,6 +225,12 @@ xnoremap p pgvy
 
 " Quit window on <leader>q
 nnoremap <leader>q :q<CR>
+
+" Save buffer to file
+nnoremap <leader>s :w<CR>
+
+" Autoformat python src with yapf
+nnoremap <leader>f :ALEFix yapf<CR>
 
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>

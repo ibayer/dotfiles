@@ -47,6 +47,9 @@ map <leader>b :CtrlPBuffer<CR>
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
+" Navigate tmux + vim
+Plug 'christoomey/vim-tmux-navigator'
+
 " Folder outliner
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
@@ -209,8 +212,12 @@ if has("gui_running")
     set guioptions-=T
 endif
 
-"colorscheme molokai
+
 set termguicolors
+" set Vim-specific sequences for RGB colors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 colorscheme space-vim-dark
 hi Comment cterm=italic
 

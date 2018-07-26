@@ -55,7 +55,7 @@ Plug 'jpalardy/vim-slime'
 let g:slime_target = "tmux"
 " expects 2 tmux plan with repl in 2.
 let g:slime_python_ipython = 1
-let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
+"let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
 
 " Folder outliner
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }

@@ -1,19 +1,4 @@
 " ==========================================================
-" Dependencies - Libraries/Applications outside of vim
-" ==========================================================
-" Pep8 - http://pypi.python.org/pypi/pep8
-" Pyflakes
-
-" ==========================================================
-" Plugins included
-" ==========================================================
-" Pathogen
-"     Better Management of VIM plugins
-"
-" PyFlakes
-"     Underlines and displays errors with Python on-the-fly
-"
-" ==========================================================
 " Shortcuts
 " ==========================================================
 set nocompatible              " Don't be compatible with vi
@@ -47,12 +32,73 @@ map <leader>f :CtrlP<CR>
 map <leader>b :CtrlPBuffer<CR>
 
 " ==========================================================
-" Pathogen - Allows us to organize our vim plugins
+" Vim-Plug - Allows us to organize our vim plugins
 " ==========================================================
-" Load pathogen with docs for all plugins
-filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
+
+" Folder outliner
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" universal outcommanding of lines
+Plug 'scrooloose/nerdcommenter'
+
+" Git
+Plug 'tpope/vim-fugitive', { 'tag': 'v2.4'}
+Plug 'airblade/vim-gitgutter'
+
+Plug 'plasticboy/vim-markdown'
+
+" linter
+Plug 'w0rp/ale'
+
+" Color theme
+Plug 'liuchengxu/space-vim-dark'
+
+" Status bar
+Plug 'vim-airline/vim-airline'
+
+" Quoting/parenthesizing
+Plug 'tpope/vim-surround'
+
+" auto-complete for quotes, parens, brackets
+Plug 'Raimondi/delimitMate'
+
+" autocomplete
+Plug 'maralla/completor.vim'
+
+" Use TAB to complete when typing words, else inserts TABs as usual.  Uses
+" dictionary, source files, and completor to find matching words to complete.
+
+" Note: usual completion is on <C-n> but more trouble to press all the time.
+" Never type the same word twice and maybe learn a new spellings!
+" Use the Linux dictionary when spelling is in doubt.
+function! Tab_Or_Complete() abort
+  " If completor is already open the `tab` cycles through suggested completions.
+  if pumvisible()
+    return "\<C-N>"
+  " If completor is not open and we are in the middle of typing a word then
+  " `tab` opens completor menu.
+  elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+    return "\<C-R>=completor#do('complete')\<CR>"
+  else
+    " If we aren't typing a word and we press `tab` simply do the normal `tab`
+    " action.
+    return "\<Tab>"
+  endif
+endfunction
+
+" Use `tab` key to select completions.  Default is arrow keys.
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use tab to trigger auto completion.  Default suggests completions as you type.
+let g:completor_auto_trigger = 0
+inoremap <expr> <Tab> Tab_Or_Complete()
+
+" Initialize plugin system
+call plug#end()
 
 " ==========================================================
 " Basic Settings
@@ -82,17 +128,9 @@ set exrc
 set secure  " Disable unsave commands "
 
 
-" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
 " Disable the colorcolumn when switching modes.  Make sure this is the
 " first autocmd for the filetype here
 "autocmd FileType * setlocal colorcolumn=0
-
-""" Insert completion
-" don't select first item, follow typing in autocomplete
-set completeopt=menuone,longest,preview
-set pumheight=6             " Keep a small completion window
 
 
 """ Moving Around/Editing
@@ -162,10 +200,16 @@ if has("gui_running")
     set guioptions-=T
 endif
 
-colorscheme molokai
+"colorscheme molokai
+set termguicolors
+colorscheme space-vim-dark
+hi Comment cterm=italic
 
 " Paste from clipboard
 map <leader>p "+p
+
+" Exit insert mode
+inoremap jj <Esc>   """ jj key is <Esc> setting
 
 " Paste multiple time the same
 xnoremap p pgvy
@@ -181,17 +225,6 @@ nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Python
-" Don't let pyflakes use the quickfix window
-let g:pyflakes_use_quickfix = 0
-
-" some python-mode settings "
-let g:pymode_lint_on_fly = 1
-let g:pymode_lint = 1
-let g:pymode_lint_cwindow = 0
-
-let g:flake8_show_in_file=1  " show
 
 if exists("&colorcolumn")
    set colorcolumn=79

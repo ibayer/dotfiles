@@ -1,5 +1,7 @@
+clone dotfiles to `~/dotfiles`
+
 **Link to dotfile configs**
-`stow vim emacs config`
+`~/dotfiles$ stow vim emacs config`
 
 **Remove config links again**
-`stow -D vim emacs config`
+`~/dotfiles$ stow -D vim emacs config`

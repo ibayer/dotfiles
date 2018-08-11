@@ -15,6 +15,7 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+
 ;; Also add all directories within "lisp"
 ;; I use this for packages I'm actively working on, mostly.
 (let ((files (directory-files-and-attributes "~/.emacs.d/lisp" t)))
@@ -41,6 +42,7 @@
 
 (eval-when-compile
   (require 'use-package))
+
 
 ; Essential settings.
 (setq inhibit-splash-screen t
@@ -194,7 +196,9 @@
     ;;   (remove-hook 'elpy-modules 'elpy-module-yasnippet)
     ;;   (remove-hook 'elpy-mode-hook 'elpy-module-highlight-indentation)
     ;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
-    (elpy-use-ipython)
+    ;(elpy-use-ipython)
+    (setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
     (setq elpy-rpc-python-command "python")
     (setq elpy-rpc-backend "jedi"))
 
@@ -435,6 +439,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
+         ("\\.md.html\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :config
   (define-key markdown-mode-map (kbd "<tab>")  'markdown-cycle)
@@ -798,17 +803,32 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 
 ;(put 'narrow-to-region 'disabled nil)
 
-;;;; sRGB doesn't blend with Powerline's pixmap colors, but is only
-;;;; used in OS X. Disable sRGB before setting up Powerline.
+;;;; srgb doesn't blend with powerline's pixmap colors, but is only
+;;;; used in os x. disable srgb before setting up powerline.
 ;(when (memq window-system '(mac ns))
   ;(setq ns-use-srgb-colorspace nil))
 
 (load-theme 'gruvbox)
 
+(use-package notmuch
+  :defer t)
+
+(use-package elfeed
+	:ensure t
+	:config
+	(setq elfeed-db-directory "~/elfeed/"))
+
+(use-package elfeed-org
+	:after elfeed
+	:ensure t
+	:config
+	(setq rmh-elfeed-org-files '("~/git/org/feeds.org"))
+
+
+	(use-package elfeed-goodies
+	    :after elfeed
+	    :ensure t)
+	    (elfeed-org))
 
 (provide 'init)
 ;;; init.el ends here
-
-(use-package notmuch
-  :defer t)
-  

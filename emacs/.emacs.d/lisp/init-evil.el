@@ -1,6 +1,6 @@
 ;;; init-evil.el -- My evil mode configuration.
-;;; Commentary:
-;;; Code:
+;; Commentary:
+;; Code:
 (defun air--config-evil-leader ()
   "Configure evil leader mode."
   (evil-leader/set-leader ",")
@@ -13,7 +13,7 @@
     ;"b"  'helm-mini             ;; Switch to another buffer
     ;"B"  'magit-blame-toggle
     "c"  'comment-dwim	   ;
-    ;"d"  'kill-this-buffer
+   ;"d"  'kill-this-buffer
     ;"D"  'open-current-line-in-codebase-search
     ;"f"  'helm-imenu            ;; Jump to function in buffer
     "g"  'magit-status
@@ -62,22 +62,45 @@
   (evil-define-key 'normal global-map (kbd "C-p")   'helm-projectile)
 )
 
+;(use-package evil
+; :ensure t
+; ;:commands (evil-mode evil-define-key)
+; :config
+; (add-hook 'evil-mode-hook 'air--config-evil)
+; (evil-mode 1)
+
+
+
+(setq evil-want-integration nil)
 (use-package evil
   :ensure t
-  ;:commands (evil-mode evil-define-key)
+  ;:after evil-leader
+  :init
+  (setq evil-want-integration nil)
   :config
   (add-hook 'evil-mode-hook 'air--config-evil)
   (evil-mode 1)
-
-  (use-package evil-leader
-    :ensure t
-    :config
-    (global-evil-leader-mode)
-    (air--config-evil-leader))
-
   )
 
+(use-package evil-leader
+  :after evil
+  :ensure t
+  :config
+  (global-evil-leader-mode)
+  (air--config-evil-leader))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
+(use-package evil-magit
+  :after evil
+  :ensure t)
+
 (use-package key-chord
+  :after evil
   :ensure t
   :config
     ;;Exit insert mode by pressing j and then j quickly

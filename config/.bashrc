@@ -107,23 +107,15 @@ fi
 
 parse_git_branch ()
 {
-  git branch 2> /dev/null | grep '*' | sed 's#*\ \(.*\)#(git::\1)#'
+  git branch 2> /dev/null | grep '*' | sed 's#*\ \(.*\)#(\1)#'
 }
-parse_svn_branch() {
-  parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print "(svn::"$1 "/" $2 ")"}'
-}
-parse_svn_url() {
-  svn info 2>/dev/null | sed -ne 's#^URL: ##p'
-}
-parse_svn_repository_root() {
-  svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
-}
+
 set -o vi
 export EDITOR="vim"
 export GIT_EDITOR="vim"
 
 # Add git and svn branch names
-export PS1="$PS1\$(parse_git_branch)\$(parse_svn_branch) "
+export PS1="$PS1\$(parse_git_branch) "
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile

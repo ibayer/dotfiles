@@ -62,8 +62,14 @@ let g:slime_python_ipython = 1
 " create tags
 Plug 'ludovicchabant/vim-gutentags'
 
+" cross file / buffer search
+Plug 'ctrlpvim/ctrlp.vim'
+
 " Folder outliner
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" faster folding
+Plug 'Konfekt/FastFold'
 
 " universal outcommanding of lines
 Plug 'scrooloose/nerdcommenter'
@@ -96,6 +102,9 @@ Plug 'Raimondi/delimitMate'
 
 " autocomplete
 Plug 'maralla/completor.vim'
+
+" correct python folding
+Plug 'tmhedberg/SimpylFold'
 
 " Use TAB to complete when typing words, else inserts TABs as usual.  Uses
 " dictionary, source files, and completor to find matching words to complete.
@@ -264,6 +273,7 @@ nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 
 if exists("&colorcolumn")
    set colorcolumn=79

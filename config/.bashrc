@@ -128,8 +128,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# added by Miniconda3 4.3.21 installer
-export PATH="/home/ibayer/miniconda3/bin:$PATH"
+alias ipy="ipython --no-confirm-exit --no-banner --quick --InteractiveShellApp.extensions=\"['autoreload']\" --InteractiveShellApp.exec_lines=\"['%autoreload 2', 'import os,sys']\""
 
 # added by travis gem
 [ -f /home/ibayer/.travis/travis.sh ] && source /home/ibayer/.travis/travis.sh
+
+complete -C /usr/local/bin/nomad nomad

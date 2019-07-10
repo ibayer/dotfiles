@@ -6,6 +6,8 @@
 " - flake8 (on-the-fly linter)
 " - jedi (autocomplete)
 " - yapf (autoformat)
+"
+" - exuberant-ctags
 
 " ==========================================================
 " Shortcuts
@@ -57,6 +59,9 @@ let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
 "let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
 
+" create tags
+Plug 'ludovicchabant/vim-gutentags'
+
 " Folder outliner
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
@@ -71,6 +76,11 @@ Plug 'plasticboy/vim-markdown'
 
 " linter
 Plug 'w0rp/ale'
+" 18.04 repo version has cursor bug
+" https://github.com/w0rp/ale/issues/1334
+" bug tracker https://bugs.launchpad.net/ubuntu/+source/vim/+bug/1768026
+" this is a workarount
+"let g:ale_echo_cursor = 0
 
 " Color theme
 Plug 'liuchengxu/space-vim-dark'

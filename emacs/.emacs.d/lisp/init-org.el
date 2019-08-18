@@ -366,7 +366,7 @@ If invoked with C-u, toggle the setting"
 
   ;; ;;; Agenda configuration
  ;; ;(setq org-agenda-text-search-extra-files '(agenda-archives))
-  (setq org-agenda-files '("~/git/org/" "~/git/org/projects" "~/git/org/knowledge-vault" "~/git/collabo"))
+  (setq org-agenda-files '("~/git/org/" "~/git/org/projects" "~/git/org/knowledge-vault" "~/git/collabo" "~/git/org/calendar"))
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-use-property-inheritance t)
   (setq org-agenda-overriding-columns-format " %8TODO %PRIORITY %10Project %60ITEM ")
@@ -545,14 +545,14 @@ If invoked with C-u, toggle the setting"
   (setq
    org-caldav-calendars
    `((:calendar-id "org" ; name of calendar in nextcloud
-      :inbox "~/git/org/office.org"
+      :inbox "~/git/org/calendar/office.org"
       :url "https://nextcloud.palaimon.io/remote.php/dav/calendars/Immanuel/"
       ;; :files ,(org-agenda-files)	;
       :files
       ;; :select-tags '("shared")
       )
      (:calendar-id "palaimon" ; name of calendar in nextcloud
-      :inbox "~/git/org/palaimon.org"
+      :inbox "~/git/org/calendar/palaimon.org"
       :url "https://nextcloud.palaimon.io/remote.php/dav/calendars/Immanuel/"
       :files
       )

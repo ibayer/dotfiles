@@ -538,6 +538,32 @@ If invoked with C-u, toggle the setting"
   :if window-system
   :ensure t)
 
+(use-package org-caldav
+  :after (org org-agenda)
+  :ensure t
+  :config
+  (setq
+   org-caldav-calendars
+   `((:calendar-id "org" ; name of calendar in nextcloud
+      :inbox "~/git/org/office.org"
+      :url "https://nextcloud.palaimon.io/remote.php/dav/calendars/Immanuel/"
+      ;; :files ,(org-agenda-files)	;
+      :files
+      ;; :select-tags '("shared")
+      )
+     (:calendar-id "palaimon" ; name of calendar in nextcloud
+      :inbox "~/git/org/palaimon.org"
+      :url "https://nextcloud.palaimon.io/remote.php/dav/calendars/Immanuel/"
+      :files
+      )
+     )
+   ;; org-caldav-delete-org-entries 'ask
+   ;; org-caldav-save-directory (concat eqyiel/xdg-cache-home "/emacs")
+   org-icalendar-include-todo t
+   org-icalendar-timezone "Europe/Berlin"
+   org-icalendar-use-scheduled '(event-if-todo)
+   ))
+
 
 (provide 'init-org)
 ;;; init-org.el ends here

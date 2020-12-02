@@ -62,6 +62,9 @@ let g:slime_python_ipython = 1
 " create tags
 Plug 'ludovicchabant/vim-gutentags'
 
+" terraform
+Plug 'hashivim/vim-terraform'
+
 " cross file / buffer search
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -101,7 +104,16 @@ Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 
 " autocomplete
-Plug 'maralla/completor.vim'
+
+"cd ~/.vim/plugged/YouCompleteMe
+"python3 install.py --clang-completer
+Plug 'Valloric/YouCompleteMe'
+
+" doesn't work with poetry virtual envs'
+"let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+"
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 1
 
 " correct python folding
 Plug 'tmhedberg/SimpylFold'
